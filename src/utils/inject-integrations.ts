@@ -1,38 +1,44 @@
 import fs from 'fs-extra'
 import cpy from 'cpy'
 import path from 'node:path'
-import {integrations as IntegrationOptions} from '../config/integrations'
+import {integrationOptions} from '../config/integrations'
+import type {Integration, AvailableIntegration} from '../types'
 
-export const injectIntegrations = async ({integrations, templatePath, targetPath}:
-  {integrations: string[], templatePath:string, targetPath: string}) => {
-  for (const [integration] of Object.entries(IntegrationOptions)) {
-    // @ts-ignore
-    const integrationValue = IntegrationOptions[integration].value
-    if (integrations.includes(integration)) {
-      await cpy(path.join(templatePath, 'integrations', integrationValue, 'api', '**', '*'),
-        path.join(targetPath, 'app', 'api'))
-      await cpy(path.join(templatePath, 'integrations', integrationValue, 'core', '**', '*'),
-        path.join(targetPath, 'integrations'))
-      await cpy(path.join(templatePath, 'integrations', integrationValue, 'pages', '**', '*'),
-        path.join(targetPath, 'app', '(general)', 'integration'))
+// Helper function to handle copying files
+const copyFiles = async (integration: AvailableIntegration, templatePath: string, targetPath: string)  => {
+  await Promise.all([
+    cpy(path.join(templatePath, 'integrations', integration, 'api', '**', '*'), path.join(targetPath, 'app', 'api')),
+    cpy(path.join(templatePath, 'integrations', integration, 'core', '**', '*'), path.join(targetPath, 'integrations')),
+    cpy(path.join(templatePath, 'integrations', integration, 'pages', '**', '*'), path.join(targetPath, 'app', '(general)', 'integration')),
+  ])
+}
+
+// Helper function to handle dependency removal
+const removeDependencies = (integration: AvailableIntegration, targetPath: string) => {
+  for (const {dependencyPath, type, regexList} of integrationOptions[integration].pageDependencies || []) {
+    const fullDependencyPath = path.join(targetPath, dependencyPath)
+
+    if (type === 'file' || !regexList) {
+      fs.removeSync(fullDependencyPath)
     } else {
-      const indexPagePath = path.join(targetPath, 'app', '(general)', 'page.tsx')
-      let indexPage = fs.readFileSync(indexPagePath).toString()
-
-      // @ts-ignore
-      for (const pageRegex of IntegrationOptions[integration]?.pageRegex || []) {
-        indexPage = indexPage.replace(pageRegex, '')
+      let pageData = fs.readFileSync(fullDependencyPath).toString()
+      for (const regex of regexList) {
+        pageData = pageData.replace(regex, '')
       }
 
-      fs.writeFileSync(indexPagePath, indexPage)
-      const dataPagePath = path.join(targetPath, 'data', 'turbo-integrations.ts')
-      let dataPage = fs.readFileSync(dataPagePath).toString()
-      // @ts-ignore
-      for (const dataRegex of IntegrationOptions[integration]?.dataRegex || []) {
-        dataPage = dataPage.replace(dataRegex, '')
-      }
+      fs.writeFileSync(fullDependencyPath, pageData)
+    }
+  }
+}
 
-      fs.writeFileSync(dataPagePath, dataPage)
+export const injectIntegrations = async ({
+  selectedIntegrations, templatePath, targetPath,
+}: { selectedIntegrations: string[], templatePath: string, targetPath: string }) => {
+  for (const [integration] of Object.entries(integrationOptions) as [AvailableIntegration, Integration][]) {
+    if (selectedIntegrations.includes(integration)) {
+      await copyFiles(integration, templatePath, targetPath)
+    } else {
+      removeDependencies(integration, targetPath)
     }
   }
 }

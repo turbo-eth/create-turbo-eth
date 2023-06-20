@@ -1,6 +1,6 @@
 import {confirm, input} from '@inquirer/prompts'
 import {envVariables} from '../../config/env-variables'
-
+import chalk from 'chalk'
 export const selectCustomEnvVariables = async () => {
   const customEnvVars:Record<string, string> = {}
 
@@ -10,13 +10,12 @@ export const selectCustomEnvVariables = async () => {
   })
 
   if (customEnvVariables) {
-    for (const envVariableName in envVariables) {
-      // @ts-ignore
-      const {env, message, validate} = envVariables[envVariableName]
-      // @ts-ignore
+    for (const [env, {message, validate, instructions}] of Object.entries(envVariables)) {
+      if (instructions) console.log(chalk.magentaBright(instructions))
       const envValue = await input({
         message,
         validate,
+        transformer: (input: string) => input.trim(),
       })
 
       customEnvVars[env] = envValue

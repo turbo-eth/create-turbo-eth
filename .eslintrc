@@ -6,7 +6,7 @@
   "rules": {
     "@typescript-eslint/explicit-module-boundary-types": "off",
     "no-await-in-loop": "off",
-    "unicorn/better-regex": "off"
-
+    "unicorn/better-regex": "off",
+    "max-depth": "off"
   }
 }

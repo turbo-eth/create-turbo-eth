@@ -112,8 +112,3 @@ export const walletConnectorOptions = [
   },
 ]
 
-export const getIsIntegrations = (selectedTemplate: string) : boolean => selectedTemplate === 'turbo-eth/template-web3-app#integrations'
-export const getIsDiscoSelected = (selectedIntegrations: string[]) : boolean => selectedIntegrations.includes('disco')
-export const getIsEtherscanSelected = (selectedIntegrations: string[]) : boolean => selectedIntegrations.includes('etherscan')
-export const getIsOpenAISelected = (selectedIntegrations: string[]) : boolean => selectedIntegrations.includes('openai')
-

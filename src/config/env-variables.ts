@@ -1,51 +1,47 @@
+import type {EnvVariables} from '../types'
+import {z} from 'zod'
 
-export const envVariables = {
-  sessionSecret: {
-    name: 'Next Session Secret',
-    message: 'Add a session secret of at least 32 characters',
-    env: 'NEXTAUTH_SECRET',
+export const envVariables: EnvVariables = {
+  NEXTAUTH_SECRET: {
+    instructions: 'You can generate one at https://generate-secret.vercel.app/32',
+    message: 'Add a session secret of at least 32 characters:',
     validate: (input:string) => {
-      if (input.length < 32) {
-        return 'Please enter a secret with at least 32 characters'
+      if (z.string().min(32).safeParse(input).success) {
+        return true
       }
 
-      return true
+      return 'Please enter a secret with at least 32 characters'
     },
   },
-  databaseUrl: {
-    name: 'Database URL',
-    message: ' Add a database connection url',
-    env: 'DATABASE_URL',
+  DATABASE_URL: {
+    instructions: 'Read more about database connection URLs at https://www.prisma.io/docs/reference/database-reference/connection-urls',
+    message: 'Add a database connection url:',
     validate: (input:string) => {
-      if (input.length === 0) {
-        return 'Please enter a valid database URL'
+      if (z.string().url().safeParse(input).success) {
+        return true
       }
 
-      return true
+      return 'Please enter a valid database URL'
     },
   },
-  appAdmins: {
-    name: 'App Admins',
-    message: 'Add the admin addresses of your app separated by  commas',
-    env: 'APP_ADMINS',
+  APP_ADMINS: {
+    message: 'Add the admin addresses of your app separated by commas:',
     validate: (input:string) => {
-      if (!/^(0x[\dA-Fa-f]{40}( *, *0x[\dA-Fa-f]{40})* *)*$/.test(input.trim())) {
-        return 'Please enter a valid list of admin addresses'
+      if (z.string().regex(/^(0x[a-fA-F0-9]{40}( *, *0x[a-fA-F0-9]{40})* *)*$/).safeParse(input).success) {
+        return true
       }
 
-      return true
+      return 'Please enter a valid list of admin addresses'
     },
   },
-  websiteUrl: {
-    name: 'Website URL',
+  SITE_URL: {
     message: 'What is going to be the URL of your website?',
-    env: 'SITE_URL',
     validate: (input:string) => {
-      if (input.length === 0) {
-        return 'Please enter a valid website URL'
+      if (z.string().url().safeParse(input).success) {
+        return true
       }
 
-      return true
+      return 'Please enter a valid website URL'
     },
   },
 }
