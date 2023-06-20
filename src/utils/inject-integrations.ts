@@ -6,12 +6,14 @@ import {integrations as IntegrationOptions} from '../config/integrations'
 export const injectIntegrations = async ({integrations, templatePath, targetPath}:
   {integrations: string[], templatePath:string, targetPath: string}) => {
   for (const [integration] of Object.entries(IntegrationOptions)) {
+    // @ts-ignore
+    const integrationValue = IntegrationOptions[integration].value
     if (integrations.includes(integration)) {
-      await cpy(path.join(templatePath, 'integrations', integration, 'api', '**', '*'),
+      await cpy(path.join(templatePath, 'integrations', integrationValue, 'api', '**', '*'),
         path.join(targetPath, 'app', 'api'))
-      await cpy(path.join(templatePath, 'integrations', integration, 'core', '**', '*'),
+      await cpy(path.join(templatePath, 'integrations', integrationValue, 'core', '**', '*'),
         path.join(targetPath, 'integrations'))
-      await cpy(path.join(templatePath, 'integrations', integration, 'pages', '**', '*'),
+      await cpy(path.join(templatePath, 'integrations', integrationValue, 'pages', '**', '*'),
         path.join(targetPath, 'app', '(general)', 'integration'))
     } else {
       const indexPagePath = path.join(targetPath, 'app', '(general)', 'page.tsx')
