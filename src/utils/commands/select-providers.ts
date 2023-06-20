@@ -1,5 +1,5 @@
 import {input, checkbox} from '@inquirer/prompts'
-import {providers} from '../../config/providers'
+import {providers} from '../../config/providers.js'
 
 export const selectProviders = async () => {
   const providerEnvVars: Record<string, string> = {}

@@ -1,4 +1,4 @@
-import type {Integrations} from '../types'
+import type {Integrations} from '../types.js'
 import path from 'node:path'
 import {z} from 'zod'
 

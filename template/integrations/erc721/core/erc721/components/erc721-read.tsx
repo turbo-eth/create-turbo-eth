@@ -2,7 +2,7 @@ import { useState } from 'react'
 
 import type { Address } from 'wagmi'
 
-import { ERC721Name, ERC721OwnerOf, ERC721Symbol, ERC721TokenUriDescription, ERC721TokenUriImage, ERC721TokenUriName, ERC721TotalSupply } from '../'
+import { ERC721Name, ERC721OwnerOf, ERC721Symbol, ERC721TokenUriDescription, ERC721TokenUriImage, ERC721TokenUriName, ERC721TotalSupply } from '..'
 
 interface Erc721ReadProps {
   address: Address

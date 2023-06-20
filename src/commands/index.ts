@@ -6,12 +6,12 @@ import chalk from 'chalk'
 import cpy from 'cpy'
 import {fileURLToPath} from 'node:url'
 
-import {bannerTitle} from '../config'
-import {selectProviders} from '../utils/commands/select-providers'
-import {injectEnvVariables} from '../utils/inject-env-variables'
-import {selectCustomEnvVariables} from '../utils/commands/select-custom-env-variables'
-import {selectIntegrations} from '../utils/commands/select-integrations'
-import {injectIntegrations} from '../utils/inject-integrations'
+import {bannerTitle} from '../config/data.js'
+import {selectProviders} from '../utils/commands/select-providers.js'
+import {injectEnvVariables} from '../utils/inject-env-variables.js'
+import {selectCustomEnvVariables} from '../utils/commands/select-custom-env-variables.js'
+import {selectIntegrations} from '../utils/commands/select-integrations.js'
+import {injectIntegrations} from '../utils/inject-integrations.js'
 
 interface CliResults {
   appName: string;

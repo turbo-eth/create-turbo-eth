@@ -2,21 +2,18 @@
   "compilerOptions": {
     "declaration": true,
     "importHelpers": true,
-    "module": "ES2020",
+    "module": "ESNext",
+    "moduleResolution": "Node",
     "target": "ESNext",
-    
-    "moduleResolution": "node",
      "esModuleInterop": true,
     "skipLibCheck": true,
     "outDir": "dist",
     "rootDir": "src",
     "strict": true,
-
   },
   "ts-node": {
     "esm": true
   },
   "include": [
-    "src/**/*"
-, "template"  ],
+    "src"],
 }

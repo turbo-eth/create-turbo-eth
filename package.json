@@ -1,6 +1,6 @@
 {
   "name": "turboeth-cli-alpha",
-  "version": "0.0.1-alpha-4",
+  "version": "0.0.1-alpha-5",
   "description": "TurboETH template scaffolding CLI",
   "author": "Vitor @marthendalnunes",
   "type": "module",
@@ -14,6 +14,7 @@
   "files": [
     "/bin",
     "/dist",
+    "/template",
     "/npm-shrinkwrap.json",
     "/oclif.manifest.json"
   ],
@@ -70,8 +71,8 @@
     "build": "shx rm -rf dist && tsc -b",
     "lint": "eslint . --ext .ts --config .eslintrc",
     "postpack": "shx rm -f oclif.manifest.json",
-    "posttest": "yarn lint",
-    "prepack": "yarn build && oclif manifest && oclif readme",
+    "posttest": "pnpm lint",
+    "prepack": "pnpm build ",
     "test": "mocha --forbid-only \"test/**/*.test.ts\"",
     "version": "oclif readme && git add README.md"
   },

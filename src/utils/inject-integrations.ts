@@ -1,8 +1,8 @@
 import fs from 'fs-extra'
 import cpy from 'cpy'
 import path from 'node:path'
-import {integrationOptions} from '../config/integrations'
-import type {Integration, AvailableIntegration} from '../types'
+import {integrationOptions} from '../config/integrations.js'
+import type {Integration, AvailableIntegration} from '../types.js'
 
 // Helper function to handle copying files
 const copyFiles = async (integration: AvailableIntegration, templatePath: string, targetPath: string)  => {

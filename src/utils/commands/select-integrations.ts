@@ -1,7 +1,7 @@
 import chalk from 'chalk'
 import {checkbox, input} from '@inquirer/prompts'
-import {integrationOptions} from '../../config/integrations'
-import type {AvailableIntegration} from '../../types'
+import {integrationOptions} from '../../config/integrations.js'
+import type {AvailableIntegration} from '../../types.js'
 
 export const selectIntegrations = async () => {
   const integrationEnvVars: Record<string, string> = {}
