@@ -1,5 +1,5 @@
 import {confirm, input} from '@inquirer/prompts'
-import {envVariables} from '../../config/env-variables.js'
+import {envVariables} from '../../config/env-variables'
 import chalk from 'chalk'
 export const selectCustomEnvVariables = async () => {
   const customEnvVars:Record<string, string> = {}

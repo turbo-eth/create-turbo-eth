@@ -1,4 +1,4 @@
-import type {EnvVariables} from '../types.js'
+import type {EnvVariables} from '../types'
 import {z} from 'zod'
 
 export const envVariables: EnvVariables = {
