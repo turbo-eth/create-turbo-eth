@@ -1,3 +1,5 @@
+export type PackageManager = 'npm' | 'pnpm' | 'yarn'
+
 type PageDependencies = {
   dependencyPath: string
   type: 'file' | 'snippet'

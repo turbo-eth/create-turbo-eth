@@ -1,5 +1,5 @@
-import {input, checkbox} from '@inquirer/prompts'
-import {providers} from '../../config/providers'
+import { input, checkbox } from '@inquirer/prompts'
+import { providers } from '../../config/providers'
 
 export const selectProviders = async () => {
   const providerEnvVars: Record<string, string> = {}
@@ -7,12 +7,11 @@ export const selectProviders = async () => {
   let selectedProviders = await checkbox({
     message: 'Which providers would you like to use?',
 
-    choices: Object.entries(providers).map(([value, {name}]) => (
-      {
-        value,
-        name,
-      }
-    ))})
+    choices: Object.entries(providers).map(([value, { name }]) => ({
+      value,
+      name,
+    })),
+  })
 
   if (selectedProviders.length === 0) selectedProviders = ['public']
 
@@ -28,9 +27,10 @@ export const selectProviders = async () => {
       validate: (input: string) => {
         if (!input) return 'API key is required'
         return true
-      }})
+      },
+    })
     providerEnvVars[provider.env] = apiKey
   }
 
-  return {providerEnvVars, selectedProviders}
+  return { providerEnvVars, selectedProviders }
 }
