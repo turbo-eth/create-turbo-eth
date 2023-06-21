@@ -1,6 +1,6 @@
-import type {Integrations} from '../types'
+import type { Integrations } from '../types'
 import path from 'node:path'
-import {z} from 'zod'
+import { z } from 'zod'
 
 const indexPagePath = path.join('app', '(general)', 'page.tsx')
 const dataConfigPath = path.join('data', 'turbo-integrations.ts')
@@ -17,7 +17,10 @@ export const integrationOptions: Integrations = {
       {
         dependencyPath: indexPagePath,
         type: 'snippet',
-        regexList: [/\nimport \{ ERC20Decimals, ERC20Name, ERC20Symbol \} from '@\/integrations\/erc20\/components\/erc20-read'/g, /\n\s*{\s*title: 'ERC20 WAGMI',[\s\S]*?<\/LinkComponent>\s*<\/div>\s*\),\s*},/g],
+        regexList: [
+          /\nimport \{ ERC20Decimals, ERC20Name, ERC20Symbol \} from '@\/integrations\/erc20\/components\/erc20-read'/g,
+          /\n\s*{\s*title: 'ERC20 WAGMI',[\s\S]*?<\/LinkComponent>\s*<\/div>\s*\),\s*},/g,
+        ],
       },
     ],
   },
@@ -32,7 +35,10 @@ export const integrationOptions: Integrations = {
       {
         dependencyPath: indexPagePath,
         type: 'snippet',
-        regexList: [/\nimport { ERC721TokenUriImage, ERC721TokenUriName } from '@\/integrations\/erc721'/g, /\n\s*{\s*title: 'ERC721 WAGMI',[\s\S]*?<\/LinkComponent>\s*<\/div>\s*\),\s*},/g],
+        regexList: [
+          /\nimport { ERC721TokenUriImage, ERC721TokenUriName } from '@\/integrations\/erc721'/g,
+          /\n\s*{\s*title: 'ERC721 WAGMI',[\s\S]*?<\/LinkComponent>\s*<\/div>\s*\),\s*},/g,
+        ],
       },
     ],
   },
@@ -54,7 +60,7 @@ export const integrationOptions: Integrations = {
       DISCO_API_KEY: {
         message: 'What is your Disco API Key?',
         instructions: 'You can request your Disco API Key at https://discoxyz.typeform.com/requestapi',
-        validate: (input:string) => {
+        validate: (input: string) => {
           if (z.string().min(1).safeParse(input).success) {
             return true
           }
@@ -62,7 +68,8 @@ export const integrationOptions: Integrations = {
           return 'Disco API Key is required'
         },
       },
-    }},
+    },
+  },
   etherscan: {
     name: 'Etherscan',
     pageDependencies: [
@@ -86,6 +93,25 @@ export const integrationOptions: Integrations = {
         regexList: [/\n\s*{\s*label: 'Transactions',[\s\S]*?},/g],
       },
     ],
+    // Don't require Etherscan API keys since they are not required to make API requests
+    env: {
+      ETHERSCAN_API_KEY: {
+        message: 'What is your Etherscan API Key?',
+        instructions: 'You can get your Etherscan API Key at https://etherscan.io/myapikey',
+      },
+      ETHERSCAN_API_KEY_OPTIMISM: {
+        message: 'What is your Optimism Etherscan API Key?',
+        instructions: 'You can get your Optimism Etherscan API Key at https://optimistic.etherscan.io/myapikey',
+      },
+      ETHERSCAN_API_KEY_ARBITRUM: {
+        message: 'What is your Arbitrum Etherscan API Key?',
+        instructions: 'You can get your Arbitrum Etherscan API Key at https://arbiscan.io/myapikey',
+      },
+      ETHERSCAN_API_KEY_POLYGON: {
+        message: 'What is your Polygon Etherscan API Key?',
+        instructions: 'You can get your Polygon Etherscan API Key at https://polygonscan.com/myapikey',
+      },
+    },
   },
   'lit-protocol': {
     name: 'Lit Protocol',
@@ -120,7 +146,7 @@ export const integrationOptions: Integrations = {
       OPENAI_API_KEY: {
         message: 'What is your OpenAI API Key?',
         instructions: 'You can get your OpenAI API Key at https://platform.openai.com/account/api-keys',
-        validate: (input:string) => {
+        validate: (input: string) => {
           if (z.string().min(1).safeParse(input).success) {
             return true
           }

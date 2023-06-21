@@ -2,7 +2,6 @@ export const providers = {
   alchemy: {
     name: 'Alchemy',
     env: 'NEXT_PUBLIC_ALCHEMY_API_KEY',
-
   },
   infura: {
     name: 'Infura',
