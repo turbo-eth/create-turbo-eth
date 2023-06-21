@@ -1,9 +1,3 @@
-**/generated/**-wagmi.ts
-**/generated/blockchain.ts
-
-.next/**
-.husky/**
-.vscode/**
-.github/**
+template/**
 
 pnpm-lock.yaml
