@@ -21,16 +21,16 @@ const defaultValues: CliResults = {
 
 export default class Core extends Command {
   static flags = {
-    pnpm: Flags.boolean({ description: 'Use pnpm as package manager' }),
-    npm: Flags.boolean({ description: 'Use npm as package manager' }),
-    yarn: Flags.boolean({ description: 'Use yarn as package manager' }),
-    skipGit: Flags.boolean({ description: 'Skip git initialization' }),
+    pnpm: Flags.boolean({ description: 'Use pnpm as the package manager' }),
+    npm: Flags.boolean({ description: 'Use npm as the package manager' }),
+    yarn: Flags.boolean({ description: 'Use yarn as the package manager' }),
+    'skip-git': Flags.boolean({ description: 'Skip git repository initialization' }),
   }
 
   async run(): Promise<void> {
     const { flags } = await this.parse(Core)
     const packageManager = getPackageManager(flags)
-    let skipGit = flags.skipGit
+    let skipGit = flags['skip-git']
 
     this.log(chalk.hex('#f8e06a')(bannerTitle))
 
