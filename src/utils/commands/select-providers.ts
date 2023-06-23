@@ -1,7 +1,8 @@
 import { input, checkbox } from '@inquirer/prompts'
 import { providers } from '../../config/providers'
+import { Context } from '../../types'
 
-export const selectProviders = async () => {
+export const selectProviders = async ({ context }: { context: Context }) => {
   const providerEnvVars: Record<string, string> = {}
 
   let selectedProviders = await checkbox({
@@ -32,5 +33,12 @@ export const selectProviders = async () => {
     providerEnvVars[provider.env] = apiKey
   }
 
-  return { providerEnvVars, selectedProviders }
+  context.set({
+    envVariables: {
+      ...context.get().envVariables,
+      ...providerEnvVars,
+    },
+    integrations: context.get().integrations,
+    networks: context.get().networks,
+  })
 }

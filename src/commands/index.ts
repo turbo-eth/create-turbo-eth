@@ -5,11 +5,14 @@ import path from 'node:path'
 import chalk from 'chalk'
 import { execa } from 'execa'
 import cpy from 'cpy'
+import degit from 'degit'
 import { fileURLToPath } from 'node:url'
 
 import { bannerTitle } from '../config'
 import { getPackageManager, validateProjectName, injectEnvVariables, injectIntegrations, injectNetworks } from '../utils'
 import { selectProviders, selectNetworks, selectCustomEnvVariables, selectIntegrations } from '../utils/commands'
+import { templateOptions } from '../config/templates'
+import type { AvailableTemplates, Context, ContextObj } from '../types'
 
 interface CliResults {
   appName: string
@@ -19,17 +22,39 @@ const defaultValues: CliResults = {
   appName: 'my-app',
 }
 
+const context: Context = (() => {
+  let ctx = {}
+  const get = () => ctx
+  const set = (newCtx: ContextObj) => {
+    ctx = newCtx
+  }
+
+  return { get, set }
+})()
+
 export default class Core extends Command {
   static flags = {
     pnpm: Flags.boolean({ description: 'Use pnpm as the package manager' }),
     npm: Flags.boolean({ description: 'Use npm as the package manager' }),
     yarn: Flags.boolean({ description: 'Use yarn as the package manager' }),
     'skip-git': Flags.boolean({ description: 'Skip git repository initialization' }),
+    'skip-install': Flags.boolean({ description: 'Skip package installation' }),
+    template: Flags.string({
+      description: 'Use a template to scaffold your project',
+      options: Object.keys(templateOptions),
+    }),
   }
 
   async run(): Promise<void> {
     const { flags } = await this.parse(Core)
     const packageManager = getPackageManager(flags)
+
+    const template = flags.template ? templateOptions[flags.template as AvailableTemplates] : null
+
+    // Skips package installation if the flag is passed
+    let skipInstall = flags['skip-install']
+
+    // Skips git initialization if the flag is passed
     let skipGit = flags['skip-git']
 
     this.log(chalk.hex('#f8e06a')(bannerTitle))
@@ -43,10 +68,20 @@ export default class Core extends Command {
       validate: (projectName) => validateProjectName({ projectName, projectPath: projectName }),
     })
 
-    const { integrationEnvVars, selectedIntegrations } = await selectIntegrations()
-    const { providerEnvVars } = await selectProviders()
-    const { customEnvVars } = await selectCustomEnvVariables()
-    const { selectedProdNetworks, selectedTestNetworks } = await selectNetworks()
+    // Only ask for integrations, providers, networks and env variables if no template is selected
+    if (!template) {
+      await selectIntegrations({ context })
+      await selectProviders({ context })
+      await selectCustomEnvVariables({ context })
+      await selectNetworks({ context })
+    }
+
+    if (!skipInstall) {
+      skipInstall = !(await confirm({
+        message: 'Would you like to install the dependencies of your project?',
+        default: true,
+      }))
+    }
 
     if (!skipGit) {
       skipGit = !(await confirm({
@@ -58,25 +93,35 @@ export default class Core extends Command {
     ux.action.start(`Scaffolding ${chalk.bold(projectName)}`)
 
     const projectDir = path.resolve(process.cwd(), projectName)
-    fs.mkdirSync(projectDir)
     const __dirname = fileURLToPath(new URL('.', import.meta.url))
     const templatePath = path.join(__dirname, '../..', 'template')
-    await cpy(path.join(templatePath, 'base', '**', '*'), projectDir)
+
+    // Create project directory
+    fs.mkdirSync(projectDir)
+
+    if (template) {
+      const emitter = degit(template.git, {
+        verbose: true,
+      })
+      await emitter.clone(projectDir)
+    } else {
+      // Copy base template
+      await cpy(path.join(templatePath, 'base', '**', '*'), projectDir)
+    }
 
     injectEnvVariables({
-      envVariables: { ...providerEnvVars, ...customEnvVars, ...integrationEnvVars },
+      envVariables: context.get().envVariables,
       targetPath: projectDir,
     })
 
     await injectIntegrations({
-      selectedIntegrations,
+      selectedIntegrations: context.get().integrations,
       templatePath,
       targetPath: projectDir,
     })
 
     await injectNetworks({
-      selectedProdNetworks,
-      selectedTestNetworks,
+      networks: context.get().networks,
       targetPath: projectDir,
     })
 
@@ -85,12 +130,14 @@ export default class Core extends Command {
     this.log(`\nUsing ${chalk.bold(packageManager)}.\n`)
     ux.action.start('Installing packages. This might take a few minutes')
 
-    const installArgs = ['install', packageManager === 'npm' ? '--quiet' : '--silent']
-    try {
-      await execa(packageManager, installArgs, { cwd: projectDir, env: { ...process.env, NODE_ENV: 'development' } })
-    } catch (error) {
-      console.error(chalk.red('Error installing packages'))
-      console.error(error)
+    if (!skipInstall) {
+      const installArgs = ['install', packageManager === 'npm' ? '--quiet' : '--silent']
+      try {
+        await execa(packageManager, installArgs, { cwd: projectDir, env: { ...process.env, NODE_ENV: 'development' } })
+      } catch (error) {
+        console.error(chalk.red('Error installing packages'))
+        console.error(error)
+      }
     }
 
     ux.action.stop(`${chalk.green(`Sucessfully installed packages\n`)}`)
@@ -99,10 +146,10 @@ export default class Core extends Command {
       ux.action.start('Initializing git repository')
       await execa('git', ['init'], { cwd: projectDir })
       await execa('git', ['add', '.'], { cwd: projectDir })
-      await execa('git', ['commit', '--no-verify', '-m', 'Initial commit from turbo-eth-cli'], { cwd: projectDir })
+      await execa('git', ['commit', '--no-verify', '-m', 'Initial commit from create-turbo-eth'], { cwd: projectDir })
       ux.action.stop(`${chalk.green(`Sucessfully created git repository\n`)}`)
     }
 
-    this.log(chalk.green(`${chalk.bold('Next steps:')}\n  cd chalk.bold(${projectName})\n  pnpm dev`))
+    this.log(chalk.green(`${chalk.bold('Next steps:')}\n  cd ${chalk.bold(projectName)}\n  ${packageManager} dev`))
   }
 }

@@ -40,22 +40,27 @@ const removeDependenciesTest = (network: AvailableTestNetworks, targetPath: stri
 }
 
 export const injectNetworks = async ({
-  selectedProdNetworks,
-  selectedTestNetworks,
+  networks,
   targetPath,
 }: {
-  selectedProdNetworks: string[]
-  selectedTestNetworks: string[]
+  networks?: {
+    production: string[]
+    test: string[]
+  }
   targetPath: string
 }) => {
+  if (!networks) return
+
+  const { production, test } = networks
+
   for (const [network] of Object.entries(prodNetworkOptions) as [AvailableProdNetworks, Network][]) {
-    if (!selectedProdNetworks.includes(network)) {
+    if (!production.includes(network)) {
       removeDependenciesProd(network, targetPath)
     }
   }
 
   for (const [network] of Object.entries(testNetworkOptions) as [AvailableTestNetworks, Network][]) {
-    if (!selectedTestNetworks.includes(network)) {
+    if (!test.includes(network)) {
       removeDependenciesTest(network, targetPath)
     }
   }
@@ -63,11 +68,11 @@ export const injectNetworks = async ({
   let networksConfigData = fs.readFileSync(path.join(targetPath, configNetworksPath)).toString()
   networksConfigData = networksConfigData.replace(
     /^export\s+const\s+ETH_CHAINS_PROD\s+=\s+\[[^\]]*\]/m,
-    `export const ETH_CHAINS_PROD = [${selectedProdNetworks.join(', ')}]`
+    `export const ETH_CHAINS_PROD = [${production.join(', ')}]`
   )
   networksConfigData = networksConfigData.replace(
     /^export\s+const\s+ETH_CHAINS_TEST\s+=\s+\[[^\]]*\]/m,
-    `export const ETH_CHAINS_TEST = [${selectedTestNetworks.join(', ')}]`
+    `export const ETH_CHAINS_TEST = [${test.join(', ')}]`
   )
   fs.writeFileSync(path.join(targetPath, configNetworksPath), networksConfigData)
 

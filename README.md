@@ -73,6 +73,16 @@ Choose from a range of production and testnet networks to match your project's n
 - Celo Alfajores
 - Base Goerli
 
+### Templates
+
+In addition to the core TurboETH template, you can utilize the `create-turbo-eth` CLI to initiate more sophisticated templates, each focusing on specific functionalities. This can be achieved by appending the `--template` flag, followed by the name of your desired template:
+
+- [template-disco-app](https://github.com/turbo-eth/template-disco-app): Networks 🪩 Disco App Template - A TurboETH template for building next generation identity applications powered by Disco.
+- [template-tally-app](https://github.com/turbo-eth/template-tally-app): Council 🏛️ Tally App Template - A TurboETH template for building governance applications powered by Tally and OpenAI.
+- [template-bank-app](https://github.com/turbo-eth/template-bank-app): 🏦 Bank - Web3 Savings Cards using PoolTogether, ERC721K and Solbase
+- [places](https://github.com/kamescg/places): 🗺️ Places - Digital Collectible App Template
+- [turbo-slides](https://github.com/turbo-eth/turbo-slides): 📖 Turbo Slides - Create presentation decks using MDX, React, and Next.js with Web3 capabilities.
+
 ### Flags
 
 During CLI execution, you can use optional flags for further customization.
@@ -80,6 +90,10 @@ During CLI execution, you can use optional flags for further customization.
 #### --skip-git
 
 Skips git repository initialization.
+
+#### --skip-install
+
+Skips package installation
 
 #### --pnpm
 
@@ -92,6 +106,10 @@ Uses npm as the package manager.
 #### --yarn
 
 Uses yarn as the package manager.
+
+#### --template
+
+Select a custom template to bootstrap from.
 
 ### Community
 

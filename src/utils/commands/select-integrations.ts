@@ -1,9 +1,9 @@
 import chalk from 'chalk'
 import { checkbox, input } from '@inquirer/prompts'
 import { integrationOptions } from '../../config/integrations'
-import type { AvailableIntegrations } from '../../types'
+import type { AvailableIntegrations, Context } from '../../types'
 
-export const selectIntegrations = async () => {
+export const selectIntegrations = async ({ context }: { context: Context }) => {
   const integrationEnvVars: Record<string, string> = {}
 
   const selectedIntegrations: string[] = await checkbox({
@@ -32,5 +32,12 @@ export const selectIntegrations = async () => {
     }
   }
 
-  return { selectedIntegrations, integrationEnvVars }
+  context.set({
+    envVariables: {
+      ...context.get().envVariables,
+      ...integrationEnvVars,
+    },
+    integrations: selectedIntegrations,
+    networks: context.get().networks,
+  })
 }

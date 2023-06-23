@@ -36,10 +36,11 @@ export const injectIntegrations = async ({
   templatePath,
   targetPath,
 }: {
-  selectedIntegrations: string[]
+  selectedIntegrations?: string[]
   templatePath: string
   targetPath: string
 }) => {
+  if (!selectedIntegrations) return
   for (const [integration] of Object.entries(integrationOptions) as [AvailableIntegrations, Integration][]) {
     if (selectedIntegrations.includes(integration)) {
       await copyFiles(integration, templatePath, targetPath)
