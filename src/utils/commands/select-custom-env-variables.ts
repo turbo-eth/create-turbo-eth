@@ -1,8 +1,9 @@
 import { confirm, input } from '@inquirer/prompts'
 import { envVariables } from '../../config/env-variables'
+import type { Context } from '../../types'
 import chalk from 'chalk'
 
-export const selectCustomEnvVariables = async () => {
+export const selectCustomEnvVariables = async ({ context }: { context: Context }) => {
   const customEnvVars: Record<string, string> = {}
 
   const customEnvVariables = await confirm({
@@ -25,11 +26,16 @@ export const selectCustomEnvVariables = async () => {
         transformer: (input: string) => input.trim(),
       })
 
-      customEnvVars[env] = envValue
+      if (envValue.length > 0) customEnvVars[env] = envValue
     }
   }
 
-  return {
-    customEnvVars,
-  }
+  context.set({
+    envVariables: {
+      ...context.get().envVariables,
+      ...customEnvVars,
+    },
+    integrations: context.get().integrations,
+    networks: context.get().networks,
+  })
 }

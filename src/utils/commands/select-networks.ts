@@ -1,8 +1,8 @@
 import { checkbox, confirm } from '@inquirer/prompts'
 import { prodNetworkOptions, testNetworkOptions, defaultProdNetworks, defaultTestNetworks } from '../../config/networks'
-import { AvailableProdNetworks } from '../../types'
+import { AvailableProdNetworks, Context } from '../../types'
 
-export const selectNetworks = async () => {
+export const selectNetworks = async ({ context }: { context: Context }) => {
   const selectedProdNetworks: string[] = await checkbox({
     message: 'Which production networks would you like to support?',
     choices: Object.entries(prodNetworkOptions).map(([value, { name }]) => ({
@@ -33,8 +33,12 @@ export const selectNetworks = async () => {
     }
   }
 
-  return {
-    selectedProdNetworks: selectedProdNetworks.length > 0 ? selectedProdNetworks : defaultProdNetworks,
-    selectedTestNetworks: selectedTestNetworks.length > 0 ? selectedTestNetworks : defaultTestNetworks,
-  }
+  context.set({
+    envVariables: context.get().envVariables,
+    integrations: context.get().integrations,
+    networks: {
+      production: selectedProdNetworks.length > 0 ? selectedProdNetworks : defaultProdNetworks,
+      test: selectedTestNetworks.length > 0 ? selectedTestNetworks : defaultTestNetworks,
+    },
+  })
 }
