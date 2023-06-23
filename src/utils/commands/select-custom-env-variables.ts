@@ -26,7 +26,7 @@ export const selectCustomEnvVariables = async ({ context }: { context: Context }
         transformer: (input: string) => input.trim(),
       })
 
-      customEnvVars[env] = envValue
+      if (envValue.length > 0) customEnvVars[env] = envValue
     }
   }
 

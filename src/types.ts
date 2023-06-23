@@ -20,6 +20,13 @@ type PageDependencies = {
   regexList?: RegExp[]
 }
 
+export type AvailableProviders = 'alchemy' | 'infura' | 'public'
+export type Providers = Record<AvailableProviders, Provider>
+export type Provider = {
+  name: string
+  env: string
+}
+
 export type AvailableProdNetworks = 'mainnet' | 'optimism' | 'arbitrum' | 'polygon' | 'celo'
 export type AvailableTestNetworks =
   | 'goerli'

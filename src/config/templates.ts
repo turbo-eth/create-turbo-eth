@@ -1,3 +1,4 @@
+import { z } from 'zod'
 import { Templates } from '../types'
 
 export const templateOptions: Templates = {
@@ -6,12 +7,49 @@ export const templateOptions: Templates = {
     name: 'Networks 🪩 Disco App Template',
     description: 'A TurboETH template for building next generation identity applications powered by Disco.',
     url: 'https://disco.turboeth.xyz/',
+    env: {
+      DISCO_API_KEY: {
+        message: 'What is your Disco API Key?',
+        instructions: 'You can request your Disco API Key at https://discoxyz.typeform.com/requestapi',
+        validate: (input: string) => {
+          if (z.string().min(1).safeParse(input).success) {
+            return true
+          }
+
+          return 'Disco API Key is required'
+        },
+      },
+    },
   },
   'template-tally-app': {
     git: 'https://github.com/turbo-eth/template-tally-app',
     name: 'Council 🏛️ Tally App Template',
     description: 'A TurboETH template for building governance applications powered by Tally and OpenAI.',
     url: 'https://tally.turboeth.xyz/',
+    env: {
+      NEXT_PUBLIC_TALLY_API_KEY: {
+        message: 'What is your Tally API Key?',
+        instructions: 'You can get your API keys at https://tally.xyz/user/settings',
+        validate: (input: string) => {
+          if (z.string().min(1).safeParse(input).success) {
+            return true
+          }
+
+          return 'Tally API Key is required'
+        },
+      },
+      OPENAI_API_KEY: {
+        message: 'What is your OpenAI API Key?',
+        instructions: 'You can get your API keys at https://platform.openai.com/account/api-keys',
+        validate: (input: string) => {
+          if (z.string().min(1).safeParse(input).success) {
+            return true
+          }
+
+          return 'OpenAI API Key is required'
+        },
+      },
+    },
   },
   'template-bank-app': {
     git: 'https://github.com/turbo-eth/template-bank-app',

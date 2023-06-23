@@ -13,6 +13,7 @@ import { getPackageManager, validateProjectName, injectEnvVariables, injectInteg
 import { selectProviders, selectNetworks, selectCustomEnvVariables, selectIntegrations } from '../utils/commands'
 import { templateOptions } from '../config/templates'
 import type { AvailableTemplates, Context, ContextObj } from '../types'
+import { selectTemplateEnvVariables } from '../utils/commands/select-template-env-variables'
 
 interface CliResults {
   appName: string
@@ -68,8 +69,10 @@ export default class Core extends Command {
       validate: (projectName) => validateProjectName({ projectName, projectPath: projectName }),
     })
 
-    // Only ask for integrations, providers, networks and env variables if no template is selected
-    if (!template) {
+    if (template) {
+      await selectTemplateEnvVariables({ context, template })
+    } else {
+      // Only ask for integrations, providers, networks and env variables if no template is selected
       await selectIntegrations({ context })
       await selectProviders({ context })
       await selectCustomEnvVariables({ context })
