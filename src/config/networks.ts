@@ -62,6 +62,28 @@ export const prodNetworkOptions: ProdNetworks = {
     ],
     testnets: ['celoAlfajores'],
   },
+  gnosis: {
+    name: 'Gnosis',
+    pageDependencies: [
+      {
+        dependencyPath: configNetworksPath,
+        type: 'snippet',
+        regexList: [/\n\s*gnosis as gnosisNoIcon,/, /\n\s*const gnosis = {[\s\S]*?},?/],
+      },
+    ],
+    testnets: ['gnosisChiado'],
+  },
+  avalanche: {
+    name: 'Avalanche',
+    pageDependencies: [
+      {
+        dependencyPath: configNetworksPath,
+        type: 'snippet',
+        regexList: [/\n\s*avalanche as avalancheNoIcon,/, /\n\s*const avalanche = {[\s\S]*?},?/],
+      },
+    ],
+    testnets: ['avalancheFuji'],
+  },
 }
 
 export const testNetworkOptions: TestNetworks = {
@@ -132,6 +154,26 @@ export const testNetworkOptions: TestNetworks = {
         dependencyPath: configNetworksPath,
         type: 'snippet',
         regexList: [/\n\s*baseGoerli as baseGoerliNoIcon,/, /\n\s*const baseGoerli = {[\s\S]*?},?/],
+      },
+    ],
+  },
+  gnosisChiado: {
+    name: 'Gnosis Chiado',
+    pageDependencies: [
+      {
+        dependencyPath: configNetworksPath,
+        type: 'snippet',
+        regexList: [/\n\s*gnosisChiado as gnosisChiadoNoIcon,/, /\n\s*const gnosisChiado = {[\s\S]*?},?/],
+      },
+    ],
+  },
+  avalancheFuji: {
+    name: 'Avalanche Fuji',
+    pageDependencies: [
+      {
+        dependencyPath: configNetworksPath,
+        type: 'snippet',
+        regexList: [/\n\s*avalancheFuji as avalancheFujiNoIcon,/, /\n\s*const avalancheFuji = {[\s\S]*?},?/],
       },
     ],
   },
