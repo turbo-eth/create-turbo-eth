@@ -186,6 +186,21 @@ export const integrationOptions: Integrations = {
       },
     ],
   },
+  connext: {
+    name: 'Connext',
+    pageDependencies: [
+      {
+        dependencyPath: dataConfigPath,
+        type: 'snippet',
+        regexList: [/\n\s*connext: \{\s*name: 'Connext',[\s\S]*?imgDark: '\/integrations\/connext.png',\s*\},/g],
+      },
+      {
+        dependencyPath: indexPagePath,
+        type: 'snippet',
+        regexList: [/\n\s*{\s*title: turboIntegrations\.connext\.name,[\s\S]*?<\/IsDarkTheme>\s*<\/div>\s*\),\s*},/g],
+      },
+    ],
+  },
   starter: {
     name: 'Starter',
     pageDependencies: [

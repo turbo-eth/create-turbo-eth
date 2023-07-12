@@ -69,6 +69,7 @@ export type AvailableIntegrations =
   | 'openai'
   | 'pooltogether-v4'
   | 'session-keys'
+  | 'connext'
   | 'starter'
 
 export type Integrations = Record<AvailableIntegrations, Integration>
