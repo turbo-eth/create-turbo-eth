@@ -201,6 +201,34 @@ export const integrationOptions: Integrations = {
       },
     ],
   },
+  livepeer: {
+    name: 'Livepeer',
+    pageDependencies: [
+      {
+        dependencyPath: dataConfigPath,
+        type: 'snippet',
+        regexList: [/\n\s*livepeer: \{\s*name: 'Livepeer',[\s\S]*?imgDark: '\/integrations\/livepeer.svg',\s*\},/g],
+      },
+      {
+        dependencyPath: indexPagePath,
+        type: 'snippet',
+        regexList: [/\n\s*{\s*title: turboIntegrations\.livepeer\.name,[\s\S]*?<\/IsDarkTheme>\s*<\/div>\s*\),\s*},/g],
+      },
+    ],
+    env: {
+      NEXT_PUBLIC_LIVEPEER_API_KEY: {
+        message: 'What is your Livepeer API Key?',
+        instructions: 'You can get your OpenAI API Key at https://livepeer.studio/',
+        validate: (input: string) => {
+          if (z.string().min(1).safeParse(input).success) {
+            return true
+          }
+
+          return 'Livepeer API Key is required'
+        },
+      },
+    },
+  },
   starter: {
     name: 'Starter',
     pageDependencies: [

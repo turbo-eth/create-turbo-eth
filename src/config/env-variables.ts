@@ -44,7 +44,7 @@ export const envVariables: EnvVariables = {
       return 'Please enter a valid list of admin addresses'
     },
   },
-  SITE_URL: {
+  NEXT_PUBLIC_SITE_URL: {
     message: 'What is going to be the URL of your website?',
     required: false,
     validate: (input: string) => {

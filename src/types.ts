@@ -70,6 +70,7 @@ export type AvailableIntegrations =
   | 'pooltogether-v4'
   | 'session-keys'
   | 'connext'
+  | 'livepeer'
   | 'starter'
 
 export type Integrations = Record<AvailableIntegrations, Integration>
