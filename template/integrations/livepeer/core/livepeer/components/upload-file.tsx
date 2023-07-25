@@ -70,8 +70,13 @@ export function UploadFile() {
     [progress]
   )
 
+<<<<<<< HEAD
   if (asset?.[0] && asset[0].playbackId) {
     route.push(`/integration/livepeer/vod/${asset[0].playbackId}`)
+=======
+  if (asset?.[0]) {
+    route.push(`/integration/livepeer/vod/${asset[0].id}`)
+>>>>>>> ed79946e0ee25015d76454bf75621d28403cf254
   }
 
   return (
