@@ -1,6 +1,6 @@
 {
   "name": "create-turbo-eth",
-  "version": "0.2.1",
+  "version": "0.2.2",
   "description": "Create web3 apps in turbo mode.",
   "author": "Vitor @marthendalnunes",
   "license": "MIT",
