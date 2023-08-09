@@ -1,9 +1,9 @@
 'use client'
 
 import AppUsersTable from '@/components/app/app-users-table'
-import { ButtonSIWELogin } from '@/integrations/siwe/components/button-siwe-login'
-import { IsSignedIn } from '@/integrations/siwe/components/is-signed-in'
-import { IsSignedOut } from '@/integrations/siwe/components/is-signed-out'
+import { ButtonSpruceKitLogin } from '@/integrations/sprucekit/components/button-sprucekit-login'
+import { IsSignedIn } from '@/integrations/sprucekit/components/is-signed-in'
+import { IsSignedOut } from '@/integrations/sprucekit/components/is-signed-out'
 import { useGetAppUsers } from '@/lib/hooks/app/use-get-app-users'
 import { useUser } from '@/lib/hooks/use-user'
 
@@ -15,8 +15,7 @@ export default function PageDashboardTransactions() {
         <IsSignedOut>
           <div className="flex items-center gap-x-5 text-center">
             <span className="text-sm text-gray-600 dark:text-gray-100">Authenticate to access admin area.</span>
-            <ButtonSIWELogin className="btn btn-emerald btn-sm" />
-            SPRUCEKIT EEEOOOO
+            <ButtonSpruceKitLogin className="btn btn-emerald btn-sm" />
           </div>
         </IsSignedOut>
       </div>

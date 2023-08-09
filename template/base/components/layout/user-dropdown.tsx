@@ -4,11 +4,11 @@ import { LuBinary, LuDatabase, LuLayoutDashboard, LuLogOut } from 'react-icons/l
 
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover'
 import { FADE_IN_ANIMATION_SETTINGS } from '@/config/design'
-import { IsSignedIn } from '@/integrations/siwe/components/is-signed-in'
-import { IsSignedOut } from '@/integrations/siwe/components/is-signed-out'
+import { IsSignedIn } from '@/integrations/sprucekit/components/is-signed-in'
+import { IsSignedOut } from '@/integrations/sprucekit/components/is-signed-out'
 
-import { ButtonSIWELogin } from '../../integrations/siwe/components/button-siwe-login'
-import { ButtonSIWELogout } from '../../integrations/siwe/components/button-siwe-logout'
+import { ButtonSpruceKitLogin } from '../../integrations/sprucekit/components/button-sprucekit-login'
+import { ButtonSpruceKitLogout } from '../../integrations/sprucekit/components/button-sprucekit-logout'
 import { LinkComponent } from '../shared/link-component'
 
 export function UserDropdown() {
@@ -35,16 +35,16 @@ export function UserDropdown() {
               <p className="text-sm">Admin</p>
             </LinkComponent>
             <IsSignedIn>
-              <ButtonSIWELogout className="user-dropdown-menu-item flex">
+              <ButtonSpruceKitLogout className="user-dropdown-menu-item flex">
                 <LuLogOut className="h-4 w-4" />
                 <span className="text-sm">Logout</span>
-              </ButtonSIWELogout>
+              </ButtonSpruceKitLogout>
             </IsSignedIn>
             <IsSignedOut>
-              <ButtonSIWELogin className="user-dropdown-menu-item flex">
+              <ButtonSpruceKitLogin className="user-dropdown-menu-item flex">
                 <LuLogOut className="inline-block h-4 w-4" />
                 <span className="ml-2 text-sm">Login</span>
-              </ButtonSIWELogin>
+              </ButtonSpruceKitLogin>
             </IsSignedOut>
           </div>
         </PopoverContent>

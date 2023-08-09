@@ -11,9 +11,9 @@ export const turboIntegrations = {
     name: 'SpruceKit',
     href: '/integration/sprucekit',
     url: 'https://sprucekit.dev/',
-    description: 'Sprucekit eeeooooo.',
-    imgLight: '/integrations/siwe.svg',
-    imgDark: '/integrations/siwe.svg',
+    description: 'The open-source toolkit for decentralized identity.',
+    imgLight: '/integrations/sprucekit.svg',
+    imgDark: '/integrations/sprucekit.svg',
   },
   erc20: {
     name: 'ERC20',

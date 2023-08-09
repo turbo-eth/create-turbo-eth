@@ -11,15 +11,14 @@ import { IsWalletDisconnected } from '@/components/shared/is-wallet-disconnected
 import { LinkComponent } from '@/components/shared/link-component'
 import { FADE_DOWN_ANIMATION_VARIANTS } from '@/config/design'
 import { turboIntegrations } from '@/data/turbo-integrations'
-import { ButtonSIWELogin } from '@/integrations/siwe/components/button-siwe-login'
-import { ButtonSIWELogout } from '@/integrations/siwe/components/button-siwe-logout'
-import { IsSignedIn } from '@/integrations/siwe/components/is-signed-in'
-import { IsSignedOut } from '@/integrations/siwe/components/is-signed-out'
+import { ButtonSpruceKitLogin } from '@/integrations/sprucekit/components/button-sprucekit-login'
+import { ButtonSpruceKitLogout } from '@/integrations/sprucekit/components/button-sprucekit-logout'
+import { IsSignedIn } from '@/integrations/sprucekit/components/is-signed-in'
+import { IsSignedOut } from '@/integrations/sprucekit/components/is-signed-out'
 
 export default function PageIntegration() {
   return (
     <div className="flex-center flex flex-1 flex-col items-center justify-center text-center">
-      asdiuhasduashgduashdiusadbashbd auisygd af uyafsafy gsadyfu g sprucekit eeewwwww
       <motion.div
         animate="show"
         className="max-w-3xl px-5 text-center xl:px-0"
@@ -35,21 +34,21 @@ export default function PageIntegration() {
           },
         }}>
         <IsLightTheme>
-          <Image alt="Sign-In With Ethereum logo" className="mx-auto" height={100} src={turboIntegrations.siwe.imgDark} width={100} />
+          <Image alt="Sign-In With Ethereum logo" className="mx-auto" height={100} src={turboIntegrations.sprucekit.imgDark} width={100} />
         </IsLightTheme>
         <IsDarkTheme>
-          <Image alt="Sign-In With Ethereum logo" className="mx-auto" height={100} src={turboIntegrations.siwe.imgLight} width={100} />
+          <Image alt="Sign-In With Ethereum logo" className="mx-auto" height={100} src={turboIntegrations.sprucekit.imgLight} width={100} />
         </IsDarkTheme>
         <motion.h1
           className="text-gradient-sand my-8 text-center text-4xl font-bold tracking-[-0.02em] drop-shadow-sm md:text-8xl md:leading-[6rem]"
           variants={FADE_DOWN_ANIMATION_VARIANTS}>
-          {turboIntegrations.siwe.name}
+          {turboIntegrations.sprucekit.name}
         </motion.h1>
         <motion.p className="my-4 text-xl" variants={FADE_DOWN_ANIMATION_VARIANTS}>
-          <Balancer>{turboIntegrations.siwe.description}</Balancer>
+          <Balancer>{turboIntegrations.sprucekit.description}</Balancer>
         </motion.p>
         <motion.div className="my-4 text-xl" variants={FADE_DOWN_ANIMATION_VARIANTS}>
-          <LinkComponent isExternal className="btn btn-primary" href={turboIntegrations.siwe.url}>
+          <LinkComponent isExternal className="btn btn-primary" href={turboIntegrations.sprucekit.url}>
             Documentation
           </LinkComponent>
         </motion.div>
@@ -58,10 +57,10 @@ export default function PageIntegration() {
       <div className="container mx-auto mt-10  max-w-screen-xl gap-6 text-center">
         <IsWalletConnected>
           <IsSignedIn>
-            <ButtonSIWELogout className="btn btn-blue btn-lg " />
+            <ButtonSpruceKitLogout className="btn btn-blue btn-lg " />
           </IsSignedIn>
           <IsSignedOut>
-            <ButtonSIWELogin className="btn btn-pill btn-emerald btn-lg min-h-[70px] min-w-[200px] text-xl" />
+            <ButtonSpruceKitLogin className="btn btn-pill btn-emerald btn-lg min-h-[70px] min-w-[200px] text-xl" />
           </IsSignedOut>
         </IsWalletConnected>
         <IsWalletDisconnected>

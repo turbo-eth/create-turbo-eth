@@ -10,7 +10,7 @@ import { cn } from '@/lib/utils'
 
 import { NavigationMenuGeneral } from './navigation-menu-general'
 import { UserDropdown } from './user-dropdown'
-import BranchButtonLoginOrAccount from '../../integrations/siwe/components/branch-button-login-or-account'
+import BranchButtonLoginOrAccount from '../../integrations/sprucekit/components/branch-button-login-or-account'
 import { IsDarkTheme } from '../shared/is-dark-theme'
 import { IsDesktop } from '../shared/is-desktop'
 import { IsLightTheme } from '../shared/is-light-theme'

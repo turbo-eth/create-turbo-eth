@@ -1,8 +1,8 @@
 import axios, { AxiosError } from 'axios'
 
-export async function siweLogout(): Promise<boolean> {
+export async function spruceKitLogout(): Promise<boolean> {
   try {
-    await axios.get('/api/siwe/logout')
+    await axios.get('/api/ssx/ssx-logout')
     return true
   } catch (error) {
     if (error instanceof AxiosError === true) {

@@ -8,10 +8,10 @@ import { useAccount } from 'wagmi'
 
 import { WalletAddress } from '@/components/blockchain/wallet-address'
 import { WalletConnect } from '@/components/blockchain/wallet-connect'
-import { ButtonSIWELogin } from '@/integrations/siwe/components/button-siwe-login'
-import { ButtonSIWELogout } from '@/integrations/siwe/components/button-siwe-logout'
-import { IsSignedIn } from '@/integrations/siwe/components/is-signed-in'
-import { IsSignedOut } from '@/integrations/siwe/components/is-signed-out'
+import { ButtonSpruceKitLogin } from '@/integrations/sprucekit/components/button-sprucekit-login'
+import { ButtonSpruceKitLogout } from '@/integrations/sprucekit/components/button-sprucekit-logout'
+import { IsSignedIn } from '@/integrations/sprucekit/components/is-signed-in'
+import { IsSignedOut } from '@/integrations/sprucekit/components/is-signed-out'
 import { useToast } from '@/lib/hooks/use-toast'
 import { cn } from '@/lib/utils'
 
@@ -57,10 +57,10 @@ export function DashboardHeader({ className, ...props }: HTMLAttributes<HTMLElem
       <div className="flex items-center gap-4">
         <IsWalletConnected>
           <IsSignedIn>
-            <ButtonSIWELogout className="menu-item" />
+            <ButtonSpruceKitLogout className="menu-item" />
           </IsSignedIn>
           <IsSignedOut>
-            <ButtonSIWELogin className=" menu-item colormode" />
+            <ButtonSpruceKitLogin className=" menu-item colormode" />
           </IsSignedOut>
         </IsWalletConnected>
         <IsWalletDisconnected>

@@ -13,7 +13,7 @@ export async function POST(req: Request) {
     const request = await req.json()
     const cookieStore = cookies()
     const nonce = cookieStore.get('nonce')
-    
+
     const ssxSession = await ssx.login(
       request.siwe,
       request.signature,
@@ -44,7 +44,7 @@ export async function POST(req: Request) {
       })
     }
 
-    return ssxSession
+    return new Response(JSON.stringify({ ...ssxSession, ok: true }))
   } catch (e) {
     const errorMessage = e instanceof Error ? e.message : String(e)
     console.error(errorMessage)

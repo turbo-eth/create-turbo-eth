@@ -1,31 +1,37 @@
 'use client'
 
-import { HTMLAttributes } from 'react'
+import { HTMLAttributes, useState } from 'react'
 
-import { useAccount, useNetwork, useSignMessage } from 'wagmi'
+import { useAccount, useNetwork } from 'wagmi'
+import { useSSX } from '@spruceid/ssx-react';
 
-import { siweLogin } from '@/integrations/siwe/actions/siwe-login'
+import { spruceKitLogin } from '@/integrations/sprucekit/actions/sprucekit-login'
 import { useUser } from '@/lib/hooks/use-user'
 import { cn } from '@/lib/utils'
 
-interface ButtonSIWELoginProps extends HTMLAttributes<HTMLButtonElement> {
+interface ButtonSpruceKitLoginProps extends HTMLAttributes<HTMLButtonElement> {
   label?: string
   disabled?: boolean
 }
-export const ButtonSIWELogin = ({ className, label = 'Sign-In With Ethereum', disabled, children, ...props }: ButtonSIWELoginProps) => {
+export const ButtonSpruceKitLogin = ({ className, label = 'Sign-In With Ethereum', disabled, children, ...props }: ButtonSpruceKitLoginProps) => {
   const { mutateUser } = useUser()
-  const { isLoading, signMessageAsync } = useSignMessage()
   const { address } = useAccount()
   const { chain } = useNetwork()
+  const { ssx } = useSSX()
+
+  const [isLoading, setIsLoading] = useState<boolean>(false)
 
   const handleCreateMessage = async () => {
+    setIsLoading(true)
     try {
       if (!address || !chain?.id) return
-      await siweLogin({ address, chainId: chain?.id, signMessageAsync })
+      const { siwe, signature } = await ssx.signIn()
+      await spruceKitLogin({ message: siwe, signature })
       await mutateUser()
     } catch (error) {
       console.error(error)
     }
+    setIsLoading(false)
   }
   const classes = cn('relative', className)
   const labelClasses = cn({
