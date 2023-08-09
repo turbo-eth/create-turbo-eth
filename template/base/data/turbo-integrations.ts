@@ -7,6 +7,14 @@ export const turboIntegrations = {
     imgLight: '/integrations/siwe.svg',
     imgDark: '/integrations/siwe.svg',
   },
+  sprucekit: {
+    name: 'SpruceKit',
+    href: '/integration/sprucekit',
+    url: 'https://sprucekit.dev/',
+    description: 'Sprucekit eeeooooo.',
+    imgLight: '/integrations/siwe.svg',
+    imgDark: '/integrations/siwe.svg',
+  },
   erc20: {
     name: 'ERC20',
     href: '/integration/erc20',

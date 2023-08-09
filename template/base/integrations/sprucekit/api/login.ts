@@ -1,6 +1,6 @@
 import { getIronSession } from 'iron-session'
-import { SiweMessage } from 'siwe'
-import { z } from 'zod'
+import { cookies } from 'next/headers'
+import ssx from './_ssx'
 
 import { env } from '@/env.mjs'
 import { prisma } from '@/lib/prisma'
@@ -8,28 +8,23 @@ import { SERVER_SESSION_SETTINGS } from '@/lib/session'
 
 const admins = env.APP_ADMINS?.split(',') || []
 
-const verifySchema = z.object({
-  signature: z.string(),
-  message: z.object({
-    domain: z.string(),
-    address: z.string(),
-    statement: z.string(),
-    uri: z.string(),
-    version: z.string(),
-    chainId: z.number(),
-    nonce: z.string(),
-    issuedAt: z.string(),
-  }),
-})
-
 export async function POST(req: Request) {
   try {
+    const request = await req.json()
+    const cookieStore = cookies()
+    const nonce = cookieStore.get('nonce')
+    
+    const ssxSession = await ssx.login(
+      request.siwe,
+      request.signature,
+      request.daoLogin,
+      request.resolveEns,
+      nonce?.value ?? "",
+      request.resolveLens,
+    )
     const res = new Response(JSON.stringify({ ok: true }))
     const session = await getIronSession(req, res, SERVER_SESSION_SETTINGS)
-    const { message, signature } = verifySchema.parse(await req.json())
-    const siweMessage = new SiweMessage(message)
-    const { data: fields } = await siweMessage.verify({ signature })
-    if (fields.nonce !== session.nonce) return new Response(JSON.stringify({ message: 'Invalid nonce.' }), { status: 422 })
+    const fields = ssxSession.session.siwe
     session.siwe = fields
 
     if (admins.includes(fields.address)) {
@@ -49,7 +44,7 @@ export async function POST(req: Request) {
       })
     }
 
-    return res
+    return ssxSession
   } catch (e) {
     const errorMessage = e instanceof Error ? e.message : String(e)
     console.error(errorMessage)

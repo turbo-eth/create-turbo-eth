@@ -14,6 +14,18 @@ export const envVariables: EnvVariables = {
       return 'Please enter a secret with at least 32 characters'
     },
   },
+  SSX_SIGNING_KEY: {
+    instructions: 'You can generate one at https://generate-secret.vercel.app/64.',
+    message: 'Add a session secret of at least 32 characters:',
+    required: false,
+    validate: (input: string) => {
+      if (z.string().min(32).optional().or(z.literal('')).safeParse(input).success) {
+        return true
+      }
+
+      return 'Please enter a secret with at least 32 characters'
+    },
+  },
   DATABASE_URL: {
     instructions: 'Read more about database connection URLs at https://www.prisma.io/docs/reference/database-reference/connection-urls',
     message: 'Add a database connection url:',

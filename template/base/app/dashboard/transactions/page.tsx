@@ -21,6 +21,7 @@ export default function PageDashboardTransactions() {
             <div className="flex items-center gap-x-5 text-center">
               <span className="text-sm text-gray-600 dark:text-gray-100">Login to access the TurboETH free API</span>
               <ButtonSIWELogin className="btn btn-emerald" />
+              SPRUCEKIT EEEEOOOO
             </div>
           </IsSignedOut>
         </IsWalletConnected>
