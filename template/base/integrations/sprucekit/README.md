@@ -1,6 +1,6 @@
-# Sign-In with Ethereum - TurboETH Integration
+# SpruceKit - TurboETH Integration
 
-Welcome to the [Sign-In with Ethereum](https://login.xyz/) TurboETH Integration! This integration provides a secure and straightforward method for users to authenticate themselves using their Ethereum wallets.
+Welcome to the [SpruceKit](https://sprucekit.dev/) TurboETH Integration! This integration provides a secure and straightforward method for users to authenticate themselves using their Ethereum wallets.
 
 ## Features
 
@@ -13,14 +13,11 @@ Welcome to the [Sign-In with Ethereum](https://login.xyz/) TurboETH Integration!
 
 ### Actions
 
-`siweLogin()`
-Initiates the SIWE login process, creating and signing a SIWE message and then verifying it through a backend service.
+`spruceKitLogin()`
+Initiates the SSX login process, creating and signing a SIWE message and then verifying it through a backend service.
 
-`siweLogout()`
-Logs out the user by sending a request to the backend logout service.
-
-`siweMessage()`
-Creates a SIWE message to be signed by the user's Ethereum wallet, and returns this message along with its signature.
+`spruceKitLogout()`
+Finalize the SSX session and logs out the user by sending a request to the backend logout service.
 
 ### Components
 
@@ -33,29 +30,30 @@ A React component that conditionally renders its children if the user is signed 
 `IsSignedOut()`
 A React component that conditionally renders its children if the user is signed out.
 
-`ButtonSIWELogin()`
-A button that initiates the SIWE login process when clicked.
+`ButtonSpruceKitLogin()`
+A button that initiates the SSX login process when clicked.
 
-`ButtonSIWELogout()`
-A button that initiates the SIWE logout process when clicked.
+`ButtonSpruceKitLogout()`
+A button that initiates the SSX logout process when clicked.
 
 ## File Structure
 
 ```
-integrations/siwe
+integrations/sprucekit
 ├─ actions/
-│  ├─ siwe-login.ts
-│  ├─ siwe-logout.ts
-│  ├─ siwe-message.ts
+│  ├─ spruceki-login.ts
+│  ├─ sprucekit-logout.ts
 ├─ api/
+│  ├─ _ssx.ts
 │  ├─ index.ts
+│  ├─ login.ts
 │  ├─ logout.ts
 │  ├─ nonce.ts
 │  ├─ verify.ts
 ├─ components/
 │  ├─ branch-button-login-or-account.tsx
-│  ├─ button-siwe-login.tsx
-│  ├─ button-siwe-logout.tsx
+│  ├─ button-sprucekit-login.tsx
+│  ├─ button-sprucekit-logout.tsx
 │  ├─ is-signed-in.tsx
 │  ├─ is-signed-out.tsx
 ├─ README.md

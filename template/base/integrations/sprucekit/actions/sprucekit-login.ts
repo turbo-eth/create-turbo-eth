@@ -8,7 +8,7 @@ interface SpruceKitLoginProps {
 export const spruceKitLogin = async ({ message, signature }: SpruceKitLoginProps) => {
   // 1. Verify signature
   const siweMessage = new SiweMessage(message)
-  const verifyRes = await fetch('/api/siwe/verify', {
+  const verifyRes = await fetch('/api/ssx/ssx-verify', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
