@@ -229,6 +229,21 @@ export const integrationOptions: Integrations = {
       },
     },
   },
+  gelato: {
+    name: 'Gelato',
+    pageDependencies: [
+      {
+        dependencyPath: dataConfigPath,
+        type: 'snippet',
+        regexList: [/\n\s*gelato: \{\s*name: 'Gelato',[\s\S]*?imgDark: '\/integrations\/gelato-light.svg',\s*\},/g],
+      },
+      {
+        dependencyPath: indexPagePath,
+        type: 'snippet',
+        regexList: [/\n\s*{\s*title: turboIntegrations\.gelato\.name,[\s\S]*?<\/IsDarkTheme>\s*<\/div>\s*\),\s*},/g],
+      },
+    ],
+  },
   starter: {
     name: 'Starter',
     pageDependencies: [
