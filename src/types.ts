@@ -71,6 +71,7 @@ export type AvailableIntegrations =
   | 'session-keys'
   | 'connext'
   | 'livepeer'
+  | 'gelato'
   | 'starter'
 
 export type Integrations = Record<AvailableIntegrations, Integration>
