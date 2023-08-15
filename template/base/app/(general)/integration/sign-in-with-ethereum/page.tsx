@@ -67,8 +67,6 @@ export default function PageIntegration() {
           <WalletConnect className="mx-auto inline-block" />
         </IsWalletDisconnected>
       </div>
-      <br />
-      <small>Powered by SpruceKit</small>
     </div>
   )
 }
