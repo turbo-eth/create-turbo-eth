@@ -14,9 +14,9 @@ import { FADE_DOWN_ANIMATION_VARIANTS } from '@/config/design'
 import { turboIntegrations } from '@/data/turbo-integrations'
 import TransactionsTable from '@/integrations/etherscan/components/transactions-table'
 import { useEtherscanAccountTransactions } from '@/integrations/etherscan/hooks/use-etherscan-account-transactions'
-import { ButtonSIWELogin } from '@/integrations/siwe/components/button-siwe-login'
-import { IsSignedIn } from '@/integrations/siwe/components/is-signed-in'
-import { IsSignedOut } from '@/integrations/siwe/components/is-signed-out'
+import { ButtonSpruceKitLogin } from '@/integrations/sprucekit/components/button-sprucekit-login'
+import { IsSignedIn } from '@/integrations/sprucekit/components/is-signed-in'
+import { IsSignedOut } from '@/integrations/sprucekit/components/is-signed-out'
 
 export default function PageIntegration() {
   const { chain } = useNetwork()
@@ -74,7 +74,7 @@ export default function PageIntegration() {
             </IsSignedIn>
             <IsSignedOut>
               <div className="">
-                <ButtonSIWELogin className="btn btn-emerald" label="Sign-In With Ethereum" />
+                <ButtonSpruceKitLogin className="btn btn-emerald" label="Sign-In With Ethereum" />
                 <p className="mt-4 text-sm text-neutral-600 dark:text-neutral-200">
                   Accessing the Etherscan API requires authenticating with an Ethereum Account.
                 </p>

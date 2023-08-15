@@ -21,10 +21,10 @@ import { DEPLOY_URL, siteConfig } from '@/config/site'
 import { turboIntegrations } from '@/data/turbo-integrations'
 import { ERC20Decimals, ERC20Name, ERC20Symbol } from '@/integrations/erc20/components/erc20-read'
 import { ERC721TokenUriImage, ERC721TokenUriName } from '@/integrations/erc721'
-import { ButtonSIWELogin } from '@/integrations/siwe/components/button-siwe-login'
-import { ButtonSIWELogout } from '@/integrations/siwe/components/button-siwe-logout'
-import { IsSignedIn } from '@/integrations/siwe/components/is-signed-in'
-import { IsSignedOut } from '@/integrations/siwe/components/is-signed-out'
+import { ButtonSpruceKitLogin } from '@/integrations/sprucekit/components/button-sprucekit-login'
+import { ButtonSpruceKitLogout } from '@/integrations/sprucekit/components/button-sprucekit-logout'
+import { IsSignedIn } from '@/integrations/sprucekit/components/is-signed-in'
+import { IsSignedOut } from '@/integrations/sprucekit/components/is-signed-out'
 
 export default function Home() {
   const [copied, setCopied] = useState(false)
@@ -159,6 +159,16 @@ const features = [
     ),
   },
   {
+    title: 'SpruceKit',
+    description: turboIntegrations.sprucekit.description,
+    href: turboIntegrations.sprucekit.href,
+    demo: (
+      <div className="flex items-center justify-center space-x-20">
+        <Image alt="Prisma logo" height={80} src="/integrations/sprucekit.svg" width={80} />
+      </div>
+    ),
+  },
+  {
     title: 'Rainbowkit',
     description: 'The best way to connect a wallet. Designed for everyone. Built for developers.',
     demo: (
@@ -189,10 +199,10 @@ const features = [
       <div className="text-center text-gray-800">
         <IsWalletConnected>
           <IsSignedIn>
-            <ButtonSIWELogout className="btn btn-blue btn-lg " />
+            <ButtonSpruceKitLogout className="btn btn-blue btn-lg " />
           </IsSignedIn>
           <IsSignedOut>
-            <ButtonSIWELogin className="btn btn-emerald" label="Sign-In With Ethereum" />
+            <ButtonSpruceKitLogin className="btn btn-emerald" label="Sign-In With Ethereum" />
           </IsSignedOut>
         </IsWalletConnected>
         <IsWalletDisconnected>

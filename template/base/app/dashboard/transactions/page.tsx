@@ -6,9 +6,9 @@ import { IsWalletConnected } from '@/components/shared/is-wallet-connected'
 import { IsWalletDisconnected } from '@/components/shared/is-wallet-disconnected'
 import { TransactionsTable } from '@/integrations/etherscan/components/transactions-table'
 import { useEtherscanAccountTransactions } from '@/integrations/etherscan/hooks/use-etherscan-account-transactions'
-import { ButtonSIWELogin } from '@/integrations/siwe/components/button-siwe-login'
-import { IsSignedIn } from '@/integrations/siwe/components/is-signed-in'
-import { IsSignedOut } from '@/integrations/siwe/components/is-signed-out'
+import { ButtonSpruceKitLogin } from '@/integrations/sprucekit/components/button-sprucekit-login'
+import { IsSignedIn } from '@/integrations/sprucekit/components/is-signed-in'
+import { IsSignedOut } from '@/integrations/sprucekit/components/is-signed-out'
 import { useUser } from '@/lib/hooks/use-user'
 
 export default function PageDashboardTransactions() {
@@ -20,7 +20,7 @@ export default function PageDashboardTransactions() {
           <IsSignedOut>
             <div className="flex items-center gap-x-5 text-center">
               <span className="text-sm text-gray-600 dark:text-gray-100">Login to access the TurboETH free API</span>
-              <ButtonSIWELogin className="btn btn-emerald" />
+              <ButtonSpruceKitLogin className="btn btn-emerald" />
             </div>
           </IsSignedOut>
         </IsWalletConnected>

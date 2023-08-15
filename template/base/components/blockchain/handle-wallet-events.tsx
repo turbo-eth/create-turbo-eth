@@ -3,7 +3,7 @@ import { ReactNode } from 'react'
 
 import { useAccount } from 'wagmi'
 
-import { siweLogout } from '@/integrations/siwe/actions/siwe-logout'
+import { spruceKitLogout } from '@/integrations/sprucekit/actions/sprucekit-logout'
 import { useUser } from '@/lib/hooks/use-user'
 
 interface HandleWalletEventsProps {
@@ -14,7 +14,7 @@ export const HandleWalletEvents = ({ children }: HandleWalletEventsProps) => {
   const { mutateUser } = useUser()
   useAccount({
     async onDisconnect() {
-      await siweLogout()
+      await spruceKitLogout()
       await mutateUser()
     },
   })
