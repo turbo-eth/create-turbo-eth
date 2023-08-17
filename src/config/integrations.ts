@@ -218,7 +218,7 @@ export const integrationOptions: Integrations = {
     env: {
       NEXT_PUBLIC_LIVEPEER_API_KEY: {
         message: 'What is your Livepeer API Key?',
-        instructions: 'You can get your OpenAI API Key at https://livepeer.studio/',
+        instructions: 'You can get your Livepeer API Key at https://livepeer.studio/',
         validate: (input: string) => {
           if (z.string().min(1).safeParse(input).success) {
             return true
@@ -243,6 +243,49 @@ export const integrationOptions: Integrations = {
         regexList: [/\n\s*{\s*title: turboIntegrations\.gelato\.name,[\s\S]*?<\/IsDarkTheme>\s*<\/div>\s*\),\s*},/g],
       },
     ],
+  },
+  'push-protocol': {
+    name: 'Push Protocol',
+    pageDependencies: [
+      {
+        dependencyPath: dataConfigPath,
+        type: 'snippet',
+        regexList: [/\n\s*push_protocol: \{\s*name: 'Push Protocol',[\s\S]*?imgDark: '\/integrations\/push.svg',\s*\},/g],
+      },
+      {
+        dependencyPath: indexPagePath,
+        type: 'snippet',
+        regexList: [/\n\s*{\s*title: turboIntegrations\.push_protocol\.name,[\s\S]*?<\/IsDarkTheme>\s*<\/div>\s*\),\s*},/g],
+      },
+    ],
+  },
+  moralis: {
+    name: 'Moralis',
+    pageDependencies: [
+      {
+        dependencyPath: dataConfigPath,
+        type: 'snippet',
+        regexList: [/\n\s*moralis: \{\s*name: 'Moralis',[\s\S]*?imgDark: '\/integrations\/moralis.png',\s*\},/g],
+      },
+      {
+        dependencyPath: indexPagePath,
+        type: 'snippet',
+        regexList: [/\n\s*{\s*title: turboIntegrations\.moralis\.name,[\s\S]*?<\/IsDarkTheme>\s*<\/div>\s*\),\s*},/g],
+      },
+    ],
+    env: {
+      MORALIS_API_KEY: {
+        message: 'What is your Moralis API Key?',
+        instructions: 'You can get your Moralis API Key at https://admin.moralis.io/register',
+        validate: (input: string) => {
+          if (z.string().min(1).safeParse(input).success) {
+            return true
+          }
+
+          return 'Moralis API Key is required'
+        },
+      },
+    },
   },
   starter: {
     name: 'Starter',
