@@ -73,6 +73,7 @@ export type AvailableIntegrations =
   | 'livepeer'
   | 'gelato'
   | 'push-protocol'
+  | 'moralis'
   | 'starter'
 
 export type Integrations = Record<AvailableIntegrations, Integration>

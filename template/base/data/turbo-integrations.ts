@@ -104,6 +104,14 @@ export const turboIntegrations = {
     imgLight: '/integrations/push.svg',
     imgDark: '/integrations/push.svg',
   },
+  moralis: {
+    name: 'Moralis',
+    href: '/integration/moralis',
+    url: 'https://docs.moralis.io/',
+    description: 'Moralis provides a complete end-to-end blockchain application development platform.',
+    imgLight: '/integrations/moralis.png',
+    imgDark: '/integrations/moralis.png',
+  },
   starter: {
     name: 'Starter Template',
     href: '/integration/starter',
