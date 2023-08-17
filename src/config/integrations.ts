@@ -244,6 +244,21 @@ export const integrationOptions: Integrations = {
       },
     ],
   },
+  'push-protocol': {
+    name: 'Push Protocol',
+    pageDependencies: [
+      {
+        dependencyPath: dataConfigPath,
+        type: 'snippet',
+        regexList: [/\n\s*push_protocol: \{\s*name: 'Push Protocol',[\s\S]*?imgDark: '\/integrations\/push.svg',\s*\},/g],
+      },
+      {
+        dependencyPath: indexPagePath,
+        type: 'snippet',
+        regexList: [/\n\s*{\s*title: turboIntegrations\.push_protocol\.name,[\s\S]*?<\/IsDarkTheme>\s*<\/div>\s*\),\s*},/g],
+      },
+    ],
+  },
   starter: {
     name: 'Starter',
     pageDependencies: [

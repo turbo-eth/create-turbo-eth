@@ -72,6 +72,7 @@ export type AvailableIntegrations =
   | 'connext'
   | 'livepeer'
   | 'gelato'
+  | 'push-protocol'
   | 'starter'
 
 export type Integrations = Record<AvailableIntegrations, Integration>
