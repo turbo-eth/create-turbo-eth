@@ -27,7 +27,7 @@ export type Provider = {
   env: string
 }
 
-export type AvailableProdNetworks = 'mainnet' | 'optimism' | 'arbitrum' | 'polygon' | 'celo' | 'gnosis' | 'avalanche'
+export type AvailableProdNetworks = 'mainnet' | 'optimism' | 'arbitrum' | 'polygon' | 'celo' | 'gnosis' | 'base'
 export type AvailableTestNetworks =
   | 'goerli'
   | 'sepolia'
@@ -38,7 +38,6 @@ export type AvailableTestNetworks =
   | 'baseGoerli'
   | 'hardhat'
   | 'gnosisChiado'
-  | 'avalancheFuji'
 
 export type ProdNetworks = Record<AvailableProdNetworks, ProdNetwork>
 export type TestNetworks = Record<AvailableTestNetworks, Network>

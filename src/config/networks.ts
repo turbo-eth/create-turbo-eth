@@ -73,16 +73,16 @@ export const prodNetworkOptions: ProdNetworks = {
     ],
     testnets: ['gnosisChiado'],
   },
-  avalanche: {
-    name: 'Avalanche',
+  base: {
+    name: 'Base',
     pageDependencies: [
       {
         dependencyPath: configNetworksPath,
         type: 'snippet',
-        regexList: [/\n\s*avalanche as avalancheNoIcon,/, /\n\s*const avalanche = {[\s\S]*?},?/],
+        regexList: [/\n\s*base as baseNoIcon,/, /\n\s*const base = {[\s\S]*?},?/],
       },
     ],
-    testnets: ['avalancheFuji'],
+    testnets: ['baseGoerli'],
   },
 }
 
@@ -164,16 +164,6 @@ export const testNetworkOptions: TestNetworks = {
         dependencyPath: configNetworksPath,
         type: 'snippet',
         regexList: [/\n\s*gnosisChiado as gnosisChiadoNoIcon,/, /\n\s*const gnosisChiado = {[\s\S]*?},?/],
-      },
-    ],
-  },
-  avalancheFuji: {
-    name: 'Avalanche Fuji',
-    pageDependencies: [
-      {
-        dependencyPath: configNetworksPath,
-        type: 'snippet',
-        regexList: [/\n\s*avalancheFuji as avalancheFujiNoIcon,/, /\n\s*const avalancheFuji = {[\s\S]*?},?/],
       },
     ],
   },
