@@ -287,6 +287,21 @@ export const integrationOptions: Integrations = {
       },
     },
   },
+  aave: {
+    name: 'Aave V3',
+    pageDependencies: [
+      {
+        dependencyPath: dataConfigPath,
+        type: 'snippet',
+        regexList: [/\n\s*aave: \{\s*name: 'Aave',[\s\S]*?imgDark: '\/integrations\/aave.png',\s*\},/g],
+      },
+      {
+        dependencyPath: indexPagePath,
+        type: 'snippet',
+        regexList: [/\n\s*{\s*title: turboIntegrations\.aave\.name,[\s\S]*?<\/IsDarkTheme>\s*<\/div>\s*\),\s*},/g],
+      },
+    ],
+  },
   starter: {
     name: 'Starter',
     pageDependencies: [

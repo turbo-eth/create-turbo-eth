@@ -87,7 +87,6 @@ export const turboIntegrations = {
     imgLight: '/integrations/connext.png',
     imgDark: '/integrations/connext.png',
   },
-
   gelato: {
     name: 'Gelato',
     href: '/integration/gelato',
@@ -111,6 +110,14 @@ export const turboIntegrations = {
     description: 'Moralis provides a complete end-to-end blockchain application development platform.',
     imgLight: '/integrations/moralis.png',
     imgDark: '/integrations/moralis.png',
+  },
+  aave: {
+    name: 'Aave',
+    href: '/integration/aave',
+    url: 'https://docs.aave.com/hub/',
+    description: 'Aave is a decentralized non-custodial liquidity protocol.',
+    imgLight: '/integrations/aave.png',
+    imgDark: '/integrations/aave.png',
   },
   starter: {
     name: 'Starter Template',

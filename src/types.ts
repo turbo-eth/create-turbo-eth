@@ -73,6 +73,7 @@ export type AvailableIntegrations =
   | 'gelato'
   | 'push-protocol'
   | 'moralis'
+  | 'aave'
   | 'starter'
 
 export type Integrations = Record<AvailableIntegrations, Integration>
