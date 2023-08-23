@@ -119,6 +119,15 @@ export const turboIntegrations = {
     imgLight: '/integrations/aave.png',
     imgDark: '/integrations/aave.png',
   },
+  arweave: {
+    name: 'Arweave',
+    href: '/integration/arweave',
+    url: 'https://arwiki.arweave.dev',
+    description:
+      'Arweave is the first protocol that enables permanent data storage. Its design allows anyone to preserve data forever with just a single, one-time fee.',
+    imgLight: '/integrations/arweave-light.png',
+    imgDark: '/integrations/arweave-dark.png',
+  },
   starter: {
     name: 'Starter Template',
     href: '/integration/starter',
