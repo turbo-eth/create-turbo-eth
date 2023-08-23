@@ -37,6 +37,7 @@
   },
   "packageManager": "pnpm@7.1.8",
   "dependencies": {
+    "@bgd-labs/aave-address-book": "^1.30.0",
     "@connext/nxtp-utils": "^2.0.3",
     "@connext/sdk": "2.0.4-alpha.2",
     "@gelatonetwork/automate-sdk": "^2.14.0",
@@ -81,6 +82,8 @@
     "@tailwindcss/typography": "^0.5.9",
     "@tanstack/react-query": "^4.3.9",
     "abitype": "^0.9.6",
+    "arweave": "^1.14.0",
+    "arweave-account": "^1.4.0",
     "axios": "^1.2.2",
     "class-variance-authority": "^0.4.0",
     "clsx": "^1.2.1",
