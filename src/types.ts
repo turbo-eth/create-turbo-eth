@@ -61,6 +61,7 @@ export type EnvVariable = {
 
 export type AvailableIntegrations =
   | 'erc20'
+  | 'erc1155'
   | 'erc721'
   | 'disco'
   | 'etherscan'
@@ -75,6 +76,8 @@ export type AvailableIntegrations =
   | 'moralis'
   | 'aave'
   | 'arweave'
+  | 'gitcoin-passport'
+  | 'lens-protocol'
   | 'starter'
 
 export type Integrations = Record<AvailableIntegrations, Integration>

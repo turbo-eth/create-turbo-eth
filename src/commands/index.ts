@@ -134,7 +134,7 @@ export default class Core extends Command {
     ux.action.start('Installing packages. This might take a few minutes')
 
     if (!skipInstall) {
-      const installArgs = ['install', packageManager === 'npm' ? '--quiet' : '--silent', '--legacy-peer-deps']
+      const installArgs = ['install', packageManager === 'npm' ? '--quiet --legacy-peer-deps' : '--silent']
       try {
         await execa(packageManager, installArgs, { cwd: projectDir, env: { ...process.env, NODE_ENV: 'development' } })
       } catch (error) {
