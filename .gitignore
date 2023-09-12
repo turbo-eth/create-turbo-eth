@@ -9,5 +9,4 @@
 /tmp
 node_modules
 oclif.manifest.json
-.github
 .vscode
