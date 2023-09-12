@@ -1,36 +1,42 @@
-'use client'
+"use client"
 
-import { useBlockNumber, useNetwork } from 'wagmi'
+import Link from "next/link"
+import { useBlockNumber, useNetwork } from "wagmi"
 
-import { cn } from '@/lib/utils'
-import { GetNetworkColor } from '@/lib/utils/get-network-color'
+import { cn } from "@/lib/utils"
+import { GetNetworkColor } from "@/lib/utils/get-network-color"
+import { Badge } from "@/components/ui/badge"
 
-import { LinkComponent } from '../shared/link-component'
+const badgeVariants: Record<ReturnType<typeof GetNetworkColor>, string> = {
+  green: "bg-green-200 text-green-700",
+  blue: "bg-blue-200 text-blue-700",
+  red: "bg-red-200 text-red-700",
+  purple: "bg-purple-200 text-purple-700",
+  gray: "bg-gray-200 text-gray-700",
+  yellow: "bg-yellow-200 text-yellow-700",
+}
 
-type NetworkStatusProps = React.HTMLAttributes<HTMLDivElement>
+export function NetworkStatus() {
+  const { data } = useBlockNumber()
+  const { chain } = useNetwork()
+  const blockExplorerUrl = chain?.blockExplorers?.default.url
 
-export function NetworkStatus({ className, ...props }: NetworkStatusProps) {
-  const block = useBlockNumber({ watch: true })
-  const network = useNetwork()
-  const explorerUrl = network.chain?.blockExplorers?.default.url
-  const classes = cn(className, 'dark:bg-gray-800 bg-gray-100 z-10 flex shadow-md items-center rounded-full overflow-hidden')
-  const classesBadge = cn(
-    'uppercase text-xs font-bold tracking-wider leading-none rounded-full px-2',
-    `bg-${GetNetworkColor(network.chain?.network)}-200`,
-    `text-${GetNetworkColor(network.chain?.network)}-700 dark:text-${GetNetworkColor(network.chain?.network)}-700 py-2`
-  )
+  if (!chain || !blockExplorerUrl) return null
 
   return (
-    <div className={classes} {...props}>
-      <span className={classesBadge}>
-        <span className="px-1">{network.chain?.name ?? 'Ethereum'}</span>
-      </span>
-      {explorerUrl && (
-        <LinkComponent className="mx-3 text-2xs dark:hover:text-gray-200" href={explorerUrl}>
-          <>#{block.data?.toString()}</>
-        </LinkComponent>
-      )}
-      {!explorerUrl && <span className="mx-3 text-2xs"># {block.data?.toString()}</span>}
-    </div>
+    <Link
+      href={blockExplorerUrl}
+      className="fixed bottom-6 left-6 z-10 flex items-center overflow-hidden rounded-full bg-muted text-muted-foreground shadow-md"
+    >
+      <Badge
+        className={cn(
+          "rounded-full py-2 text-xs font-bold uppercase leading-none tracking-wider",
+          badgeVariants[GetNetworkColor(chain.name)]
+        )}
+      >
+        {chain.name}
+      </Badge>
+      <p className="mx-2 text-xs">#{data?.toString()}</p>
+    </Link>
   )
 }

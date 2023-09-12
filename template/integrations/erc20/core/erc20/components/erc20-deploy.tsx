@@ -1,26 +1,25 @@
-import { useState } from 'react'
+import { useState } from "react"
+import { FieldValues, useForm } from "react-hook-form"
+import { usePublicClient, useWalletClient } from "wagmi"
 
-import { FieldValues, useForm } from 'react-hook-form'
-import { usePublicClient, useWalletClient } from 'wagmi'
+import { Card, CardContent, CardFooter } from "@/components/ui/card"
+import { Separator } from "@/components/ui/separator"
+import { BlockExplorerLink } from "@/components/blockchain/block-explorer-link"
+import { ContractWriteButton } from "@/components/blockchain/contract-write-button"
 
-import { BlockExplorerLink } from '@/components/blockchain/block-explorer-link'
-import { ContractWriteButton } from '@/components/blockchain/contract-write-button'
-import { WalletConnect } from '@/components/blockchain/wallet-connect'
-import { IsWalletConnected } from '@/components/shared/is-wallet-connected'
-import { IsWalletDisconnected } from '@/components/shared/is-wallet-disconnected'
-
-import { erc20MintableABI } from '../abis/erc20-mintable-abi'
-import { erc20MintableByteCode } from '../abis/erc20-mintable-bytecode'
-import { useERC20TokenStorage } from '../hooks/use-erc20-token-storage'
+import { erc20MintableABI } from "../abis/erc20-mintable-abi"
+import { erc20MintableByteCode } from "../abis/erc20-mintable-bytecode"
+import { useERC20TokenStorage } from "../hooks/use-erc20-token-storage"
 
 export function DeployERC20Contract() {
   const [token, setToken] = useERC20TokenStorage()
   const [isSigning, setIsSigning] = useState<boolean>(false)
-  const [isWaitingTransaction, setIsWaitingTransaction] = useState<boolean>(false)
+  const [isWaitingTransaction, setIsWaitingTransaction] =
+    useState<boolean>(false)
 
   const { register, handleSubmit, watch } = useForm()
-  const name = watch('name')
-  const symbol = watch('symbol')
+  const name = watch("name")
+  const symbol = watch("symbol")
 
   const publicClient = usePublicClient()
   const { data: walletClient } = useWalletClient()
@@ -56,16 +55,24 @@ export function DeployERC20Contract() {
   }
 
   return (
-    <form className="flex w-full flex-col gap-4" onSubmit={handleSubmit(onSubmit)}>
+    <form
+      className="flex w-full flex-col gap-4"
+      onSubmit={handleSubmit(onSubmit)}
+    >
       <label>Name</label>
-      <input {...register('name')} className="input" />
+      <input {...register("name")} className="input" />
       <label>Symbol</label>
-      <input {...register('symbol')} className="input" />
-      <ContractWriteButton isLoadingTx={isWaitingTransaction} isLoadingWrite={isSigning} loadingTxText="Deploying..." write={Boolean(name && symbol)}>
+      <input {...register("symbol")} className="input" />
+      <ContractWriteButton
+        isLoadingTx={isWaitingTransaction}
+        isLoadingWrite={isSigning}
+        loadingTxText="Deploying..."
+        write={Boolean(name && symbol)}
+      >
         Deploy
       </ContractWriteButton>
       {!token ? null : (
-        <div className="flex max-w-full flex-wrap items-center justify-between break-words pt-5 pb-2">
+        <div className="flex max-w-full flex-wrap items-center justify-between break-words pb-2 pt-5">
           <span className="font-semibold">Mint Contract Address:</span>
           <BlockExplorerLink address={token} />
         </div>
@@ -76,22 +83,17 @@ export function DeployERC20Contract() {
 
 export function ERC20Deploy() {
   return (
-    <div className="card w-full">
-      <IsWalletConnected>
-        <div className="w-full">
-          <DeployERC20Contract />
-          <hr className="my-4" />
-          <div className="flex items-center justify-between">
-            <h3 className="text-center">ERC20 Deploy</h3>
-            <p className="text-center text-sm text-gray-500">Deploy a new mintable ERC20 token to any blockchain</p>
-          </div>
-        </div>
-      </IsWalletConnected>
-      <IsWalletDisconnected>
-        <div className="flex items-center justify-center gap-10">
-          <WalletConnect />
-        </div>
-      </IsWalletDisconnected>
-    </div>
+    <Card>
+      <CardContent>
+        <DeployERC20Contract />
+      </CardContent>
+      <Separator className="my-4" />
+      <CardFooter className="justify-between">
+        <h3 className="text-center">ERC20 Deploy</h3>
+        <p className="text-center text-sm text-muted-foreground">
+          Deploy a new mintable ERC20 token to any blockchain
+        </p>
+      </CardFooter>
+    </Card>
   )
 }

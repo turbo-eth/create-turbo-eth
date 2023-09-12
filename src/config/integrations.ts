@@ -2,7 +2,7 @@ import type { Integrations } from '../types'
 import path from 'node:path'
 import { z } from 'zod'
 
-const indexPagePath = path.join('app', '(general)', 'page.tsx')
+const exampleDemosPath = path.join('components', 'shared', 'example-demos.tsx')
 const dataConfigPath = path.join('data', 'turbo-integrations.ts')
 
 export const integrationOptions: Integrations = {
@@ -12,14 +12,14 @@ export const integrationOptions: Integrations = {
       {
         dependencyPath: dataConfigPath,
         type: 'snippet',
-        regexList: [/\n\s*erc20: {\s*name: 'ERC20',[\S\s]*?imgDark: '\/integrations\/erc20-icon\.png',\s*},/g],
+        regexList: [/\n\s*erc20: {\s*name: "ERC20",[\S\s]*?imgDark: "\/integrations\/erc20\.png",\s*},/g],
       },
       {
-        dependencyPath: indexPagePath,
+        dependencyPath: exampleDemosPath,
         type: 'snippet',
         regexList: [
-          /\nimport \{ ERC20Decimals, ERC20Name, ERC20Symbol \} from '@\/integrations\/erc20\/components\/erc20-read'/g,
-          /\n\s*{\s*title: 'ERC20 WAGMI',[\s\S]*?<\/LinkComponent>\s*<\/div>\s*\),\s*},/g,
+          /\nimport \{\n {2}ERC20Decimals,\n {2}ERC20Name,\n {2}ERC20Symbol,\n\} from "@\/integrations\/erc20\/components\/erc20-read"/g,
+          /\n\s*{\s*title: "ERC20 WAGMI",[\s\S]*?<\/Link>\s*<\/div>\s*\),\s*},/g,
         ],
       },
     ],
@@ -30,15 +30,25 @@ export const integrationOptions: Integrations = {
       {
         dependencyPath: dataConfigPath,
         type: 'snippet',
-        regexList: [/\n\s*erc721: \{\s*name: 'ERC721',[\s\S]*?imgDark: '\/integrations\/erc721-icon.png',\s*\},/g],
+        regexList: [/\n\s*erc721: \{\s*name: "ERC721",[\s\S]*?imgDark: "\/integrations\/erc721-icon.png",\s*\},/g],
       },
       {
-        dependencyPath: indexPagePath,
+        dependencyPath: exampleDemosPath,
         type: 'snippet',
         regexList: [
-          /\nimport { ERC721TokenUriImage, ERC721TokenUriName } from '@\/integrations\/erc721'/g,
-          /\n\s*{\s*title: 'ERC721 WAGMI',[\s\S]*?<\/LinkComponent>\s*<\/div>\s*\),\s*},/g,
+          /\nimport { ERC721TokenUriImage, ERC721TokenUriName } from "@\/integrations\/erc721"/g,
+          /\n\s*{\s*title: "ERC721 WAGMI",[\s\S]*?<\/Link>\s*<\/div>\s*\),\s*},/g,
         ],
+      },
+    ],
+  },
+  erc1155: {
+    name: 'ERC1155',
+    pageDependencies: [
+      {
+        dependencyPath: dataConfigPath,
+        type: 'snippet',
+        regexList: [/\n\s*erc1155: {\s*name: "ERC1155",[\S\s]*?imgDark: "\/integrations\/erc1155-icon\.png",\s*},/g],
       },
     ],
   },
@@ -48,10 +58,10 @@ export const integrationOptions: Integrations = {
       {
         dependencyPath: dataConfigPath,
         type: 'snippet',
-        regexList: [/\n\s*disco: \{\s*name: 'Disco',[\s\S]*?imgDark: '\/integrations\/disco.jpeg',\s*\},/g],
+        regexList: [/\n\s*disco: \{\s*name: "Disco",[\s\S]*?imgDark: "\/integrations\/discoDark\.png",\s*\},/g],
       },
       {
-        dependencyPath: indexPagePath,
+        dependencyPath: exampleDemosPath,
         type: 'snippet',
         regexList: [/\n\s*{\s*title: turboIntegrations\.disco\.name,[\S\s]*?href: turboIntegrations\.disco\.href,[\S\s]*?<\/div>\s*\),\s*},/g],
       },
@@ -76,10 +86,10 @@ export const integrationOptions: Integrations = {
       {
         dependencyPath: dataConfigPath,
         type: 'snippet',
-        regexList: [/\n\s*etherscan: \{\s*name: 'Etherscan',[\s\S]*?imgDark: '\/integrations\/etherscan-dark.svg',\s*\},/g],
+        regexList: [/\n\s*etherscan: \{\s*name: "Etherscan",[\s\S]*?imgDark: "\/integrations\/etherscan-dark.svg",\s*\},/g],
       },
       {
-        dependencyPath: indexPagePath,
+        dependencyPath: exampleDemosPath,
         type: 'snippet',
         regexList: [/\n\s*{\s*title: turboIntegrations\.etherscan\.name,[\s\S]*?<\/IsDarkTheme>\s*<\/div>\s*\),\s*},/g],
       },
@@ -90,7 +100,7 @@ export const integrationOptions: Integrations = {
       {
         dependencyPath: path.join('config', 'menu-dashboard.ts'),
         type: 'snippet',
-        regexList: [/\n\s*{\s*label: 'Transactions',[\s\S]*?},/g],
+        regexList: [/\n\s*{\s*label: "Transactions",[\s\S]*?},/g],
       },
     ],
     // Don't require Etherscan API keys since they are not required to make API requests
@@ -119,10 +129,10 @@ export const integrationOptions: Integrations = {
       {
         dependencyPath: dataConfigPath,
         type: 'snippet',
-        regexList: [/\n\s*litProtocol: \{\s*name: 'Lit Protocol',[\s\S]*?imgDark: '\/integrations\/lit-protocol.png',\s*\},/g],
+        regexList: [/\n\s*litProtocol: \{\s*name: "Lit Protocol",[\s\S]*?imgDark: "\/integrations\/lit-protocol.png",\s*\},/g],
       },
       {
-        dependencyPath: indexPagePath,
+        dependencyPath: exampleDemosPath,
         type: 'snippet',
         regexList: [/\n\s*{\s*title: turboIntegrations\.litProtocol\.name,[\s\S]*?<\/IsDarkTheme>\s*<\/div>\s*\),\s*},/g],
       },
@@ -134,10 +144,10 @@ export const integrationOptions: Integrations = {
       {
         dependencyPath: dataConfigPath,
         type: 'snippet',
-        regexList: [/\n\s*openai: \{\s*name: 'OpenAI',[\s\S]*?imgDark: '\/integrations\/openai-dark.svg',\s*\},/g],
+        regexList: [/\n\s*openai: \{\s*name: "OpenAI",[\s\S]*?imgDark: "\/integrations\/openai-dark.svg",\s*\},/g],
       },
       {
-        dependencyPath: indexPagePath,
+        dependencyPath: exampleDemosPath,
         type: 'snippet',
         regexList: [/\n\s*{\s*title: turboIntegrations\.openai\.name,[\s\S]*?<\/IsDarkTheme>\s*<\/div>\s*\),\s*},/g],
       },
@@ -162,10 +172,10 @@ export const integrationOptions: Integrations = {
       {
         dependencyPath: dataConfigPath,
         type: 'snippet',
-        regexList: [/\n\s*pooltogether_v4: \{\s*name: 'PoolTogether',[\s\S]*?imgDark: '\/integrations\/pooltogether.svg',\s*\},/g],
+        regexList: [/\n\s*pooltogether_v4: \{\s*name: "PoolTogether",[\s\S]*?imgDark: "\/integrations\/pooltogether.svg",\s*\},/g],
       },
       {
-        dependencyPath: indexPagePath,
+        dependencyPath: exampleDemosPath,
         type: 'snippet',
         regexList: [/\n\s*{\s*title: turboIntegrations\.pooltogether_v4\.name,[\s\S]*?<\/IsDarkTheme>\s*<\/div>\s*\),\s*},/g],
       },
@@ -177,10 +187,10 @@ export const integrationOptions: Integrations = {
       {
         dependencyPath: dataConfigPath,
         type: 'snippet',
-        regexList: [/\n\s*sessionKeys: \{\s*name: 'Session Keys',[\s\S]*?imgDark: '\/integrations\/session-keys.png',\s*\},/g],
+        regexList: [/\n\s*sessionKeys: \{\s*name: "Session Keys",[\s\S]*?imgDark: "\/integrations\/session-keys.png",\s*\},/g],
       },
       {
-        dependencyPath: indexPagePath,
+        dependencyPath: exampleDemosPath,
         type: 'snippet',
         regexList: [/\n\s*{\s*title: turboIntegrations\.sessionKeys\.name,[\s\S]*?<\/IsDarkTheme>\s*<\/div>\s*\),\s*},/g],
       },
@@ -192,10 +202,10 @@ export const integrationOptions: Integrations = {
       {
         dependencyPath: dataConfigPath,
         type: 'snippet',
-        regexList: [/\n\s*connext: \{\s*name: 'Connext',[\s\S]*?imgDark: '\/integrations\/connext.png',\s*\},/g],
+        regexList: [/\n\s*connext: \{\s*name: "Connext",[\s\S]*?imgDark: "\/integrations\/connext.png",\s*\},/g],
       },
       {
-        dependencyPath: indexPagePath,
+        dependencyPath: exampleDemosPath,
         type: 'snippet',
         regexList: [/\n\s*{\s*title: turboIntegrations\.connext\.name,[\s\S]*?<\/IsDarkTheme>\s*<\/div>\s*\),\s*},/g],
       },
@@ -207,10 +217,10 @@ export const integrationOptions: Integrations = {
       {
         dependencyPath: dataConfigPath,
         type: 'snippet',
-        regexList: [/\n\s*livepeer: \{\s*name: 'Livepeer',[\s\S]*?imgDark: '\/integrations\/livepeer.svg',\s*\},/g],
+        regexList: [/\n\s*livepeer: \{\s*name: "Livepeer",[\s\S]*?imgDark: "\/integrations\/livepeer.svg",\s*\},/g],
       },
       {
-        dependencyPath: indexPagePath,
+        dependencyPath: exampleDemosPath,
         type: 'snippet',
         regexList: [/\n\s*{\s*title: turboIntegrations\.livepeer\.name,[\s\S]*?<\/IsDarkTheme>\s*<\/div>\s*\),\s*},/g],
       },
@@ -235,10 +245,10 @@ export const integrationOptions: Integrations = {
       {
         dependencyPath: dataConfigPath,
         type: 'snippet',
-        regexList: [/\n\s*gelato: \{\s*name: 'Gelato',[\s\S]*?imgDark: '\/integrations\/gelato-light.svg',\s*\},/g],
+        regexList: [/\n\s*gelato: \{\s*name: "Gelato",[\s\S]*?imgDark: "\/integrations\/gelato-light.svg",\s*\},/g],
       },
       {
-        dependencyPath: indexPagePath,
+        dependencyPath: exampleDemosPath,
         type: 'snippet',
         regexList: [/\n\s*{\s*title: turboIntegrations\.gelato\.name,[\s\S]*?<\/IsDarkTheme>\s*<\/div>\s*\),\s*},/g],
       },
@@ -250,10 +260,10 @@ export const integrationOptions: Integrations = {
       {
         dependencyPath: dataConfigPath,
         type: 'snippet',
-        regexList: [/\n\s*push_protocol: \{\s*name: 'Push Protocol',[\s\S]*?imgDark: '\/integrations\/push.svg',\s*\},/g],
+        regexList: [/\n\s*push_protocol: \{\s*name: "Push Protocol",[\s\S]*?imgDark: "\/integrations\/push.svg",\s*\},/g],
       },
       {
-        dependencyPath: indexPagePath,
+        dependencyPath: exampleDemosPath,
         type: 'snippet',
         regexList: [/\n\s*{\s*title: turboIntegrations\.push_protocol\.name,[\s\S]*?<\/IsDarkTheme>\s*<\/div>\s*\),\s*},/g],
       },
@@ -265,12 +275,12 @@ export const integrationOptions: Integrations = {
       {
         dependencyPath: dataConfigPath,
         type: 'snippet',
-        regexList: [/\n\s*moralis: \{\s*name: 'Moralis',[\s\S]*?imgDark: '\/integrations\/moralis.png',\s*\},/g],
+        regexList: [/\n\s*moralis: \{\s*name: "Moralis",[\s\S]*?imgDark: "\/integrations\/moralis.png",\s*\},/g],
       },
       {
-        dependencyPath: indexPagePath,
+        dependencyPath: exampleDemosPath,
         type: 'snippet',
-        regexList: [/\n\s*{\s*title: turboIntegrations\.moralis\.name,[\s\S]*?<\/IsDarkTheme>\s*<\/div>\s*\),\s*},/g],
+        regexList: [/\n\s*{\s*title: turboIntegrations\.moralis\.name,[\s\S]*?\/>\s*<\/div>\s*\),\s*},/g],
       },
     ],
     env: {
@@ -293,12 +303,12 @@ export const integrationOptions: Integrations = {
       {
         dependencyPath: dataConfigPath,
         type: 'snippet',
-        regexList: [/\n\s*aave: \{\s*name: 'Aave',[\s\S]*?imgDark: '\/integrations\/aave.png',\s*\},/g],
+        regexList: [/\n\s*aave: \{\s*name: "Aave",[\s\S]*?imgDark: "\/integrations\/aave.png",\s*\},/g],
       },
       {
-        dependencyPath: indexPagePath,
+        dependencyPath: exampleDemosPath,
         type: 'snippet',
-        regexList: [/\n\s*{\s*title: turboIntegrations\.aave\.name,[\s\S]*?<\/IsDarkTheme>\s*<\/div>\s*\),\s*},/g],
+        regexList: [/\n\s*{\s*title: turboIntegrations\.aave\.name,[\s\S]*?\/>\s*<\/div>\s*\),\s*},/g],
       },
     ],
   },
@@ -308,12 +318,42 @@ export const integrationOptions: Integrations = {
       {
         dependencyPath: dataConfigPath,
         type: 'snippet',
-        regexList: [/\n\s*arweave: \{\s*name: 'Arweave',[\s\S]*?imgDark: '\/integrations\/arweave-dark.png',\s*\},/g],
+        regexList: [/\n\s*arweave: \{\s*name: "Arweave",[\s\S]*?imgDark: "\/integrations\/arweave-dark.png",\s*\},/g],
       },
       {
-        dependencyPath: indexPagePath,
+        dependencyPath: exampleDemosPath,
         type: 'snippet',
-        regexList: [/\n\s*{\s*title: turboIntegrations\.arweave\.name,[\s\S]*?<\/IsDarkTheme>\s*<\/div>\s*\),\s*},/g],
+        regexList: [/\n\s*{\s*title: turboIntegrations\.arweave\.name,[\s\S]*?\/>\s*<\/div>\s*\),\s*},/g],
+      },
+    ],
+  },
+  'gitcoin-passport': {
+    name: 'Gitcoin Passport',
+    pageDependencies: [
+      {
+        dependencyPath: dataConfigPath,
+        type: 'snippet',
+        regexList: [/\n\s*gitcoinPassport: \{\s*name: "Gitcoin Passport",[\s\S]*?imgDark: "\/integrations\/gitcoin-passport.svg",\s*\},/g],
+      },
+      {
+        dependencyPath: exampleDemosPath,
+        type: 'snippet',
+        regexList: [/\n\s*{\s*title: turboIntegrations\.gitcoinPassport\.name,[\s\S]*?\/>\s*<\/div>\s*\),\s*},/g],
+      },
+    ],
+  },
+  'lens-protocol': {
+    name: 'Lens Protocol',
+    pageDependencies: [
+      {
+        dependencyPath: dataConfigPath,
+        type: 'snippet',
+        regexList: [/\n\s*lensProtocol: \{\s*name: "Lens Protocol",[\s\S]*?imgDark: "\/integrations\/lensprotocol-dark.svg",\s*\},/g],
+      },
+      {
+        dependencyPath: exampleDemosPath,
+        type: 'snippet',
+        regexList: [/\n\s*{\s*title: turboIntegrations\.lensProtocol\.name,[\s\S]*?\/>\s*<\/div>\s*\),\s*},/g],
       },
     ],
   },
@@ -323,12 +363,12 @@ export const integrationOptions: Integrations = {
       {
         dependencyPath: dataConfigPath,
         type: 'snippet',
-        regexList: [/\n\s*starter: \{\s*name: 'Starter Template',[\s\S]*?imgDark: '\/logo-dark.png',\s*\},/g],
+        regexList: [/\n\s*starter: \{\s*name: "Starter Template",[\s\S]*?imgDark: "\/logo-gradient\.png",\s*\},/g],
       },
       {
-        dependencyPath: indexPagePath,
+        dependencyPath: exampleDemosPath,
         type: 'snippet',
-        regexList: [/\n\s*{\s*title: turboIntegrations\.starter\.name,[\s\S]*?<\/IsDarkTheme>\s*<\/div>\s*\),\s*},/g],
+        regexList: [/\n\s*{\s*title: turboIntegrations\.starter\.name,[\s\S]*?\/>\s*<\/div>\s*\),\s*},/g],
       },
     ],
   },
