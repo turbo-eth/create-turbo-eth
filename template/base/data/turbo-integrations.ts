@@ -14,7 +14,7 @@ interface TurboIntegration {
   category: (typeof integrationCategories)[number]
 }
 
-export const turboIntegrations: Record<string, TurboIntegration> = {
+export const turboIntegrations = {
   siwe: {
     name: "SIWE",
     href: "/integration/sign-in-with-ethereum",
@@ -199,6 +199,15 @@ export const turboIntegrations: Record<string, TurboIntegration> = {
     imgLight: "/integrations/gitcoin-passport.svg",
     imgDark: "/integrations/gitcoin-passport.svg",
   },
+  defiLlama: {
+    name: "DefiLlama",
+    href: "/integration/defi-llama",
+    url: "https://defillama.com/docs/api",
+    description: "Open and transparent DeFi analytics. ",
+    category: "services",
+    imgLight: "/integrations/defi-llama.png",
+    imgDark: "/integrations/defi-llama.png",
+  },
   starter: {
     name: "Starter Template",
     href: "/integration/starter",
@@ -209,4 +218,4 @@ export const turboIntegrations: Record<string, TurboIntegration> = {
     imgLight: "/logo-gradient.png",
     imgDark: "/logo-gradient.png",
   },
-}
+} as const

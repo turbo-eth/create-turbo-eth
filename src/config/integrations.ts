@@ -1,6 +1,6 @@
-import type { Integrations } from '../types'
 import path from 'node:path'
 import { z } from 'zod'
+import type { Integrations } from '../types'
 
 const exampleDemosPath = path.join('components', 'shared', 'example-demos.tsx')
 const dataConfigPath = path.join('data', 'turbo-integrations.ts')
@@ -369,6 +369,21 @@ export const integrationOptions: Integrations = {
         dependencyPath: exampleDemosPath,
         type: 'snippet',
         regexList: [/\n\s*{\s*title: turboIntegrations\.starter\.name,[\s\S]*?\/>\s*<\/div>\s*\),\s*},/g],
+      },
+    ],
+  },
+  'defi-llama': {
+    name: 'DefiLlama',
+    pageDependencies: [
+      {
+        dependencyPath: dataConfigPath,
+        type: 'snippet',
+        regexList: [/\n\s*defiLlama: \{\s*name: "DefiLlama",[\s\S]*?imgDark: "\/integrations\/defi-llama\.png",\s*\},/g],
+      },
+      {
+        dependencyPath: exampleDemosPath,
+        type: 'snippet',
+        regexList: [/\n\s*{\s*title: turboIntegrations\.defiLlama\.name,[\s\S]*?\/>\s*<\/div>\s*\),\s*},/g],
       },
     ],
   },

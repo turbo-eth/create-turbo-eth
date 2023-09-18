@@ -78,6 +78,7 @@ export type AvailableIntegrations =
   | 'arweave'
   | 'gitcoin-passport'
   | 'lens-protocol'
+  | 'defi-llama'
   | 'starter'
 
 export type Integrations = Record<AvailableIntegrations, Integration>
