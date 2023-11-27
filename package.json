@@ -1,6 +1,6 @@
 {
   "name": "create-turbo-eth",
-  "version": "0.6.2",
+  "version": "0.7.0",
   "description": "Create web3 apps in turbo mode.",
   "author": "Vitor @marthendalnunes",
   "license": "MIT",
@@ -18,7 +18,7 @@
   ],
   "type": "module",
   "bin": {
-    "turboeth-cli-alpha": "./bin/run.js"
+    "create-turbo-eth": "./bin/run.js"
   },
   "homepage": "https://github.com/turbo-eth/create-turbo-eth",
   "exports": "./index.js",
@@ -41,7 +41,8 @@
     "execa": "^7.1.1",
     "fs-extra": "^11.1.1",
     "validate-npm-package-name": "^5.0.0",
-    "zod": "^3.21.4"
+    "zod": "^3.21.4",
+    "template": "file:./template/base"
   },
   "packageManager": "pnpm@7.1.8",
   "devDependencies": {
@@ -67,8 +68,8 @@
     "typescript": "^4.9.5"
   },
   "oclif": {
-    "bin": "turboeth-cli-alpha",
-    "dirname": "turboeth-cli-alpha",
+    "bin": "create-turbo-eth",
+    "dirname": "create-turbo-eth",
     "commands": "./dist/commands",
     "default": ".",
     "plugins": [
@@ -93,8 +94,8 @@
     "version": "oclif readme && git add README.md"
   },
   "engines": {
-    "node": ">=12.0.0"
+    "node": ">=18.0.0"
   },
-  "bugs": "https://github.com/marthendalnunes/turboeth-cli-alpha/issues",
+  "bugs": "https://github.com/turbo-eth/create-turbo-eth/issues/new?assignees=&labels=&projects=&template=bug_report.yml",
   "types": "dist/index.d.ts"
 }

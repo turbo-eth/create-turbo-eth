@@ -81,12 +81,7 @@ export type AvailableIntegrations =
   | 'defi-llama'
   | 'starter'
 
-export type Integrations = Record<AvailableIntegrations, Integration>
-export type Integration = {
-  name: string
-  pageDependencies?: PageDependencies[]
-  env?: EnvVariables
-}
+export type Integrations = Record<AvailableIntegrations, IntegrationConfig>
 
 export type AvailableTemplates = 'template-disco-app' | 'template-tally-app' | 'template-bank-app' | 'places' | 'turbo-slides'
 export type Templates = Record<AvailableTemplates, Template>
@@ -95,5 +90,12 @@ export type Template = {
   name: string
   description: string
   url?: string
+  env?: EnvVariables
+}
+
+export type IntegrationConfig = {
+  name: string
+  dependencies?: Record<string, string>
+  pageDependencies?: PageDependencies[]
   env?: EnvVariables
 }

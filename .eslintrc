@@ -9,6 +9,7 @@
     "@typescript-eslint/explicit-module-boundary-types": "off",
     "no-await-in-loop": "off",
     "unicorn/better-regex": "off",
+    "node/no-unpublished-import": "off",
     "max-depth": "off",
     "prettier/prettier": ["error"]
   }

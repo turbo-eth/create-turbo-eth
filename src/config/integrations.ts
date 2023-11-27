@@ -1,390 +1,46 @@
-import path from 'node:path'
-import { z } from 'zod'
+import {
+  aaveConfig,
+  arweaveConfig,
+  connextConfig,
+  defiLlamaConfig,
+  dicoConfig,
+  erc1155Config,
+  erc20Config,
+  erc721Config,
+  etherscanConfig,
+  gelatoConfig,
+  gitcoinPassportConfig,
+  lensProtocolConfig,
+  litProtocolConfig,
+  livepeerConfig,
+  moralisConfig,
+  openaiConfig,
+  poolTogetherV4Config,
+  pushProtocolConfig,
+  sessionKeysConfig,
+  starterConfig,
+} from '../template/integrations'
 import type { Integrations } from '../types'
 
-const exampleDemosPath = path.join('components', 'shared', 'example-demos.tsx')
-const dataConfigPath = path.join('data', 'turbo-integrations.ts')
-
 export const integrationOptions: Integrations = {
-  erc20: {
-    name: 'ERC20',
-    pageDependencies: [
-      {
-        dependencyPath: dataConfigPath,
-        type: 'snippet',
-        regexList: [/\n\s*erc20: {\s*name: "ERC20",[\S\s]*?imgDark: "\/integrations\/erc20\.png",\s*},/g],
-      },
-      {
-        dependencyPath: exampleDemosPath,
-        type: 'snippet',
-        regexList: [
-          /\nimport \{\n {2}ERC20Decimals,\n {2}ERC20Name,\n {2}ERC20Symbol,\n\} from "@\/integrations\/erc20\/components\/erc20-read"/g,
-          /\n\s*{\s*title: "ERC20 WAGMI",[\s\S]*?<\/Link>\s*<\/div>\s*\),\s*},/g,
-        ],
-      },
-    ],
-  },
-  erc721: {
-    name: 'ERC721',
-    pageDependencies: [
-      {
-        dependencyPath: dataConfigPath,
-        type: 'snippet',
-        regexList: [/\n\s*erc721: \{\s*name: "ERC721",[\s\S]*?imgDark: "\/integrations\/erc721-icon.png",\s*\},/g],
-      },
-      {
-        dependencyPath: exampleDemosPath,
-        type: 'snippet',
-        regexList: [
-          /\nimport { ERC721TokenUriImage, ERC721TokenUriName } from "@\/integrations\/erc721"/g,
-          /\n\s*{\s*title: "ERC721 WAGMI",[\s\S]*?<\/Link>\s*<\/div>\s*\),\s*},/g,
-        ],
-      },
-    ],
-  },
-  erc1155: {
-    name: 'ERC1155',
-    pageDependencies: [
-      {
-        dependencyPath: dataConfigPath,
-        type: 'snippet',
-        regexList: [/\n\s*erc1155: {\s*name: "ERC1155",[\S\s]*?imgDark: "\/integrations\/erc1155-icon\.png",\s*},/g],
-      },
-    ],
-  },
-  disco: {
-    name: 'Disco',
-    pageDependencies: [
-      {
-        dependencyPath: dataConfigPath,
-        type: 'snippet',
-        regexList: [/\n\s*disco: \{\s*name: "Disco",[\s\S]*?imgDark: "\/integrations\/discoDark\.png",\s*\},/g],
-      },
-      {
-        dependencyPath: exampleDemosPath,
-        type: 'snippet',
-        regexList: [/\n\s*{\s*title: turboIntegrations\.disco\.name,[\S\s]*?href: turboIntegrations\.disco\.href,[\S\s]*?<\/div>\s*\),\s*},/g],
-      },
-    ],
-    env: {
-      DISCO_API_KEY: {
-        message: 'What is your Disco API Key?',
-        instructions: 'You can request your Disco API Key at https://discoxyz.typeform.com/requestapi',
-        validate: (input: string) => {
-          if (z.string().min(1).safeParse(input).success) {
-            return true
-          }
-
-          return 'Disco API Key is required'
-        },
-      },
-    },
-  },
-  etherscan: {
-    name: 'Etherscan',
-    pageDependencies: [
-      {
-        dependencyPath: dataConfigPath,
-        type: 'snippet',
-        regexList: [/\n\s*etherscan: \{\s*name: "Etherscan",[\s\S]*?imgDark: "\/integrations\/etherscan-dark.svg",\s*\},/g],
-      },
-      {
-        dependencyPath: exampleDemosPath,
-        type: 'snippet',
-        regexList: [/\n\s*{\s*title: turboIntegrations\.etherscan\.name,[\s\S]*?<\/IsDarkTheme>\s*<\/div>\s*\),\s*},/g],
-      },
-      {
-        dependencyPath: path.join('app', 'dashboard', 'transactions'),
-        type: 'file',
-      },
-      {
-        dependencyPath: path.join('config', 'menu-dashboard.ts'),
-        type: 'snippet',
-        regexList: [/\n\s*{\s*label: "Transactions",[\s\S]*?},/g],
-      },
-    ],
-    // Don't require Etherscan API keys since they are not required to make API requests
-    env: {
-      ETHERSCAN_API_KEY: {
-        message: 'What is your Etherscan API Key?',
-        instructions: 'You can get your Etherscan API Key at https://etherscan.io/myapikey',
-      },
-      ETHERSCAN_API_KEY_OPTIMISM: {
-        message: 'What is your Optimism Etherscan API Key?',
-        instructions: 'You can get your Optimism Etherscan API Key at https://optimistic.etherscan.io/myapikey',
-      },
-      ETHERSCAN_API_KEY_ARBITRUM: {
-        message: 'What is your Arbitrum Etherscan API Key?',
-        instructions: 'You can get your Arbitrum Etherscan API Key at https://arbiscan.io/myapikey',
-      },
-      ETHERSCAN_API_KEY_POLYGON: {
-        message: 'What is your Polygon Etherscan API Key?',
-        instructions: 'You can get your Polygon Etherscan API Key at https://polygonscan.com/myapikey',
-      },
-    },
-  },
-  'lit-protocol': {
-    name: 'Lit Protocol',
-    pageDependencies: [
-      {
-        dependencyPath: dataConfigPath,
-        type: 'snippet',
-        regexList: [/\n\s*litProtocol: \{\s*name: "Lit Protocol",[\s\S]*?imgDark: "\/integrations\/lit-protocol.png",\s*\},/g],
-      },
-      {
-        dependencyPath: exampleDemosPath,
-        type: 'snippet',
-        regexList: [/\n\s*{\s*title: turboIntegrations\.litProtocol\.name,[\s\S]*?<\/IsDarkTheme>\s*<\/div>\s*\),\s*},/g],
-      },
-    ],
-  },
-  openai: {
-    name: 'OpenAI',
-    pageDependencies: [
-      {
-        dependencyPath: dataConfigPath,
-        type: 'snippet',
-        regexList: [/\n\s*openai: \{\s*name: "OpenAI",[\s\S]*?imgDark: "\/integrations\/openai-dark.svg",\s*\},/g],
-      },
-      {
-        dependencyPath: exampleDemosPath,
-        type: 'snippet',
-        regexList: [/\n\s*{\s*title: turboIntegrations\.openai\.name,[\s\S]*?<\/IsDarkTheme>\s*<\/div>\s*\),\s*},/g],
-      },
-    ],
-    env: {
-      OPENAI_API_KEY: {
-        message: 'What is your OpenAI API Key?',
-        instructions: 'You can get your OpenAI API Key at https://platform.openai.com/account/api-keys',
-        validate: (input: string) => {
-          if (z.string().min(1).safeParse(input).success) {
-            return true
-          }
-
-          return 'OpenAI API Key is required'
-        },
-      },
-    },
-  },
-  'pooltogether-v4': {
-    name: 'PoolTogether V4',
-    pageDependencies: [
-      {
-        dependencyPath: dataConfigPath,
-        type: 'snippet',
-        regexList: [/\n\s*pooltogether_v4: \{\s*name: "PoolTogether",[\s\S]*?imgDark: "\/integrations\/pooltogether.svg",\s*\},/g],
-      },
-      {
-        dependencyPath: exampleDemosPath,
-        type: 'snippet',
-        regexList: [/\n\s*{\s*title: turboIntegrations\.pooltogether_v4\.name,[\s\S]*?<\/IsDarkTheme>\s*<\/div>\s*\),\s*},/g],
-      },
-    ],
-  },
-  'session-keys': {
-    name: 'Session Keys',
-    pageDependencies: [
-      {
-        dependencyPath: dataConfigPath,
-        type: 'snippet',
-        regexList: [/\n\s*sessionKeys: \{\s*name: "Session Keys",[\s\S]*?imgDark: "\/integrations\/session-keys.png",\s*\},/g],
-      },
-      {
-        dependencyPath: exampleDemosPath,
-        type: 'snippet',
-        regexList: [/\n\s*{\s*title: turboIntegrations\.sessionKeys\.name,[\s\S]*?<\/IsDarkTheme>\s*<\/div>\s*\),\s*},/g],
-      },
-    ],
-  },
-  connext: {
-    name: 'Connext',
-    pageDependencies: [
-      {
-        dependencyPath: dataConfigPath,
-        type: 'snippet',
-        regexList: [/\n\s*connext: \{\s*name: "Connext",[\s\S]*?imgDark: "\/integrations\/connext.png",\s*\},/g],
-      },
-      {
-        dependencyPath: exampleDemosPath,
-        type: 'snippet',
-        regexList: [/\n\s*{\s*title: turboIntegrations\.connext\.name,[\s\S]*?<\/IsDarkTheme>\s*<\/div>\s*\),\s*},/g],
-      },
-    ],
-  },
-  livepeer: {
-    name: 'Livepeer',
-    pageDependencies: [
-      {
-        dependencyPath: dataConfigPath,
-        type: 'snippet',
-        regexList: [/\n\s*livepeer: \{\s*name: "Livepeer",[\s\S]*?imgDark: "\/integrations\/livepeer.svg",\s*\},/g],
-      },
-      {
-        dependencyPath: exampleDemosPath,
-        type: 'snippet',
-        regexList: [/\n\s*{\s*title: turboIntegrations\.livepeer\.name,[\s\S]*?<\/IsDarkTheme>\s*<\/div>\s*\),\s*},/g],
-      },
-    ],
-    env: {
-      NEXT_PUBLIC_LIVEPEER_API_KEY: {
-        message: 'What is your Livepeer API Key?',
-        instructions: 'You can get your Livepeer API Key at https://livepeer.studio/',
-        validate: (input: string) => {
-          if (z.string().min(1).safeParse(input).success) {
-            return true
-          }
-
-          return 'Livepeer API Key is required'
-        },
-      },
-    },
-  },
-  gelato: {
-    name: 'Gelato',
-    pageDependencies: [
-      {
-        dependencyPath: dataConfigPath,
-        type: 'snippet',
-        regexList: [/\n\s*gelato: \{\s*name: "Gelato",[\s\S]*?imgDark: "\/integrations\/gelato-light.svg",\s*\},/g],
-      },
-      {
-        dependencyPath: exampleDemosPath,
-        type: 'snippet',
-        regexList: [/\n\s*{\s*title: turboIntegrations\.gelato\.name,[\s\S]*?<\/IsDarkTheme>\s*<\/div>\s*\),\s*},/g],
-      },
-    ],
-  },
-  'push-protocol': {
-    name: 'Push Protocol',
-    pageDependencies: [
-      {
-        dependencyPath: dataConfigPath,
-        type: 'snippet',
-        regexList: [/\n\s*push_protocol: \{\s*name: "Push Protocol",[\s\S]*?imgDark: "\/integrations\/push.svg",\s*\},/g],
-      },
-      {
-        dependencyPath: exampleDemosPath,
-        type: 'snippet',
-        regexList: [/\n\s*{\s*title: turboIntegrations\.push_protocol\.name,[\s\S]*?<\/IsDarkTheme>\s*<\/div>\s*\),\s*},/g],
-      },
-    ],
-  },
-  moralis: {
-    name: 'Moralis',
-    pageDependencies: [
-      {
-        dependencyPath: dataConfigPath,
-        type: 'snippet',
-        regexList: [/\n\s*moralis: \{\s*name: "Moralis",[\s\S]*?imgDark: "\/integrations\/moralis.png",\s*\},/g],
-      },
-      {
-        dependencyPath: exampleDemosPath,
-        type: 'snippet',
-        regexList: [/\n\s*{\s*title: turboIntegrations\.moralis\.name,[\s\S]*?\/>\s*<\/div>\s*\),\s*},/g],
-      },
-    ],
-    env: {
-      MORALIS_API_KEY: {
-        message: 'What is your Moralis API Key?',
-        instructions: 'You can get your Moralis API Key at https://admin.moralis.io/register',
-        validate: (input: string) => {
-          if (z.string().min(1).safeParse(input).success) {
-            return true
-          }
-
-          return 'Moralis API Key is required'
-        },
-      },
-    },
-  },
-  aave: {
-    name: 'Aave V3',
-    pageDependencies: [
-      {
-        dependencyPath: dataConfigPath,
-        type: 'snippet',
-        regexList: [/\n\s*aave: \{\s*name: "Aave",[\s\S]*?imgDark: "\/integrations\/aave.png",\s*\},/g],
-      },
-      {
-        dependencyPath: exampleDemosPath,
-        type: 'snippet',
-        regexList: [/\n\s*{\s*title: turboIntegrations\.aave\.name,[\s\S]*?\/>\s*<\/div>\s*\),\s*},/g],
-      },
-    ],
-  },
-  arweave: {
-    name: 'Arweave',
-    pageDependencies: [
-      {
-        dependencyPath: dataConfigPath,
-        type: 'snippet',
-        regexList: [/\n\s*arweave: \{\s*name: "Arweave",[\s\S]*?imgDark: "\/integrations\/arweave-dark.png",\s*\},/g],
-      },
-      {
-        dependencyPath: exampleDemosPath,
-        type: 'snippet',
-        regexList: [/\n\s*{\s*title: turboIntegrations\.arweave\.name,[\s\S]*?\/>\s*<\/div>\s*\),\s*},/g],
-      },
-    ],
-  },
-  'gitcoin-passport': {
-    name: 'Gitcoin Passport',
-    pageDependencies: [
-      {
-        dependencyPath: dataConfigPath,
-        type: 'snippet',
-        regexList: [/\n\s*gitcoinPassport: \{\s*name: "Gitcoin Passport",[\s\S]*?imgDark: "\/integrations\/gitcoin-passport.svg",\s*\},/g],
-      },
-      {
-        dependencyPath: exampleDemosPath,
-        type: 'snippet',
-        regexList: [/\n\s*{\s*title: turboIntegrations\.gitcoinPassport\.name,[\s\S]*?\/>\s*<\/div>\s*\),\s*},/g],
-      },
-    ],
-  },
-  'lens-protocol': {
-    name: 'Lens Protocol',
-    pageDependencies: [
-      {
-        dependencyPath: dataConfigPath,
-        type: 'snippet',
-        regexList: [/\n\s*lensProtocol: \{\s*name: "Lens Protocol",[\s\S]*?imgDark: "\/integrations\/lensprotocol-dark.svg",\s*\},/g],
-      },
-      {
-        dependencyPath: exampleDemosPath,
-        type: 'snippet',
-        regexList: [/\n\s*{\s*title: turboIntegrations\.lensProtocol\.name,[\s\S]*?\/>\s*<\/div>\s*\),\s*},/g],
-      },
-    ],
-  },
-  starter: {
-    name: 'Starter',
-    pageDependencies: [
-      {
-        dependencyPath: dataConfigPath,
-        type: 'snippet',
-        regexList: [/\n\s*starter: \{\s*name: "Starter Template",[\s\S]*?imgDark: "\/logo-gradient\.png",\s*\},/g],
-      },
-      {
-        dependencyPath: exampleDemosPath,
-        type: 'snippet',
-        regexList: [/\n\s*{\s*title: turboIntegrations\.starter\.name,[\s\S]*?\/>\s*<\/div>\s*\),\s*},/g],
-      },
-    ],
-  },
-  'defi-llama': {
-    name: 'DefiLlama',
-    pageDependencies: [
-      {
-        dependencyPath: dataConfigPath,
-        type: 'snippet',
-        regexList: [/\n\s*defiLlama: \{\s*name: "DefiLlama",[\s\S]*?imgDark: "\/integrations\/defi-llama\.png",\s*\},/g],
-      },
-      {
-        dependencyPath: exampleDemosPath,
-        type: 'snippet',
-        regexList: [/\n\s*{\s*title: turboIntegrations\.defiLlama\.name,[\s\S]*?\/>\s*<\/div>\s*\),\s*},/g],
-      },
-    ],
-  },
+  erc20: erc20Config,
+  erc721: erc721Config,
+  erc1155: erc1155Config,
+  disco: dicoConfig,
+  etherscan: etherscanConfig,
+  'lit-protocol': litProtocolConfig,
+  openai: openaiConfig,
+  'pooltogether-v4': poolTogetherV4Config,
+  'session-keys': sessionKeysConfig,
+  connext: connextConfig,
+  livepeer: livepeerConfig,
+  gelato: gelatoConfig,
+  'push-protocol': pushProtocolConfig,
+  moralis: moralisConfig,
+  aave: aaveConfig,
+  arweave: arweaveConfig,
+  'gitcoin-passport': gitcoinPassportConfig,
+  'lens-protocol': lensProtocolConfig,
+  starter: starterConfig,
+  'defi-llama': defiLlamaConfig,
 }

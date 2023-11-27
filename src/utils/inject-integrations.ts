@@ -1,8 +1,8 @@
-import fs from 'fs-extra'
 import cpy from 'cpy'
+import fs from 'fs-extra'
 import path from 'node:path'
 import { integrationOptions } from '../config/integrations'
-import type { Integration, AvailableIntegrations } from '../types'
+import type { AvailableIntegrations, IntegrationConfig } from '../types'
 
 // Helper function to handle copying files
 const copyFiles = async (integration: AvailableIntegrations, templatePath: string, targetPath: string) => {
@@ -13,8 +13,8 @@ const copyFiles = async (integration: AvailableIntegrations, templatePath: strin
   ])
 }
 
-// Helper function to handle dependency removal
-const removeDependencies = (integration: AvailableIntegrations, targetPath: string) => {
+// Helper function to handle integration removal
+const removeIntegration = (integration: AvailableIntegrations, targetPath: string) => {
   for (const { dependencyPath, type, regexList } of integrationOptions[integration].pageDependencies || []) {
     const fullDependencyPath = path.join(targetPath, dependencyPath)
 
@@ -31,6 +31,23 @@ const removeDependencies = (integration: AvailableIntegrations, targetPath: stri
   }
 }
 
+const injectDependencies = async (integrationConfig: IntegrationConfig, targetPath: string) => {
+  const dependencies = integrationConfig?.dependencies
+  if (!dependencies) return
+
+  fs.writeJSONSync(
+    path.join(targetPath, 'package.json'),
+    {
+      ...fs.readJSONSync(path.join(targetPath, 'package.json')),
+      dependencies: {
+        ...fs.readJSONSync(path.join(targetPath, 'package.json')).dependencies,
+        ...dependencies,
+      },
+    },
+    { spaces: 2 }
+  )
+}
+
 export const injectIntegrations = async ({
   selectedIntegrations,
   templatePath,
@@ -41,11 +58,12 @@ export const injectIntegrations = async ({
   targetPath: string
 }) => {
   if (!selectedIntegrations) return
-  for (const [integration] of Object.entries(integrationOptions) as [AvailableIntegrations, Integration][]) {
+  for (const [integration] of Object.entries(integrationOptions) as [AvailableIntegrations, IntegrationConfig][]) {
     if (selectedIntegrations.includes(integration)) {
       await copyFiles(integration, templatePath, targetPath)
+      await injectDependencies(integrationOptions[integration], targetPath)
     } else {
-      removeDependencies(integration, targetPath)
+      removeIntegration(integration, targetPath)
     }
   }
 }
