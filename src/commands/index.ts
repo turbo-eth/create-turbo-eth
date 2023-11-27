@@ -1,18 +1,18 @@
+import { confirm, input } from '@inquirer/prompts'
 import { Command, Flags, ux } from '@oclif/core'
-import { input, confirm } from '@inquirer/prompts'
-import fs from 'fs-extra'
-import path from 'node:path'
 import chalk from 'chalk'
-import { execa } from 'execa'
 import cpy from 'cpy'
 import degit from 'degit'
+import { execa } from 'execa'
+import fs from 'fs-extra'
+import path from 'node:path'
 import { fileURLToPath } from 'node:url'
 
 import { bannerTitle } from '../config'
-import { getPackageManager, validateProjectName, injectEnvVariables, injectIntegrations, injectNetworks } from '../utils'
-import { selectProviders, selectNetworks, selectCustomEnvVariables, selectIntegrations } from '../utils/commands'
 import { templateOptions } from '../config/templates'
 import type { AvailableTemplates, Context, ContextObj } from '../types'
+import { getPackageManager, injectEnvVariables, injectIntegrations, injectNetworks, validateProjectName } from '../utils'
+import { selectCustomEnvVariables, selectIntegrations, selectNetworks, selectProviders } from '../utils/commands'
 import { selectTemplateEnvVariables } from '../utils/commands/select-template-env-variables'
 
 interface CliResults {
@@ -97,7 +97,7 @@ export default class Core extends Command {
 
     const projectDir = path.resolve(process.cwd(), projectName)
     const __dirname = fileURLToPath(new URL('.', import.meta.url))
-    const templatePath = path.join(__dirname, '../..', 'template')
+    const templatePath = path.join(__dirname, '..', 'template')
 
     // Create project directory
     fs.mkdirSync(projectDir)

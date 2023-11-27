@@ -14,6 +14,6 @@
   "ts-node": {
     "esm": true
   },
-  "include": [
-    "src"],
+  "include": ["src", "src/template/integrations/**/config.ts"],
+  "exclude": ["node_modules", "src/template"]
 }

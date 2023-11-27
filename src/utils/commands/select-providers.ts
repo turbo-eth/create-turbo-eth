@@ -1,18 +1,18 @@
-import { input, checkbox } from '@inquirer/prompts'
+import { checkbox, input } from '@inquirer/prompts'
 import { providers } from '../../config/providers'
 import { AvailableProviders, Context } from '../../types'
 
 export const selectProviders = async ({ context }: { context: Context }) => {
   const providerEnvVars: Record<string, string> = {}
 
-  let selectedProviders: AvailableProviders[] = await checkbox({
+  let selectedProviders = (await checkbox({
     message: 'Which providers would you like to use?',
 
     choices: Object.entries(providers).map(([value, { name }]) => ({
       value,
       name,
     })),
-  })
+  })) as AvailableProviders[]
 
   if (selectedProviders.length === 0) selectedProviders = ['public']
 
