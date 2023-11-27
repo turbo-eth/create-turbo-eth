@@ -97,7 +97,7 @@ export default class Core extends Command {
 
     const projectDir = path.resolve(process.cwd(), projectName)
     const __dirname = fileURLToPath(new URL('.', import.meta.url))
-    const templatePath = path.join(__dirname, '..', 'template')
+    const templatePath = path.join(__dirname, '../..', 'template')
 
     // Create project directory
     fs.mkdirSync(projectDir)

@@ -1,6 +1,6 @@
 {
   "name": "create-turbo-eth",
-  "version": "0.7.1",
+  "version": "0.7.2",
   "description": "Create web3 apps in turbo mode.",
   "author": "Vitor @marthendalnunes",
   "license": "MIT",
@@ -25,8 +25,8 @@
   "files": [
     "/bin",
     "/dist",
-    "/src/template",
-    "/src/template/base/.gitignore",
+    "/template",
+    "/template/base/.gitignore",
     "/npm-shrinkwrap.json",
     "/oclif.manifest.json"
   ],
