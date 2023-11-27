@@ -1,5 +1,5 @@
-import chalk from 'chalk'
 import { checkbox, input } from '@inquirer/prompts'
+import chalk from 'chalk'
 import { integrationOptions } from '../../config/integrations'
 import type { AvailableIntegrations, Context } from '../../types'
 

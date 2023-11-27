@@ -1,3 +1,4 @@
+import type { Integrations } from '../types'
 import {
   aaveConfig,
   arweaveConfig,
@@ -19,8 +20,7 @@ import {
   pushProtocolConfig,
   sessionKeysConfig,
   starterConfig,
-} from '../template/integrations'
-import type { Integrations } from '../types'
+} from './integrations-config'
 
 export const integrationOptions: Integrations = {
   erc20: erc20Config,
