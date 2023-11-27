@@ -25,8 +25,8 @@
   "files": [
     "/bin",
     "/dist",
-    "/template",
-    "/template/base/.gitignore",
+    "/src/template",
+    "/src/template/base/.gitignore",
     "/npm-shrinkwrap.json",
     "/oclif.manifest.json"
   ],
@@ -41,8 +41,7 @@
     "execa": "^7.1.1",
     "fs-extra": "^11.1.1",
     "validate-npm-package-name": "^5.0.0",
-    "zod": "^3.21.4",
-    "template": "file:./template/base"
+    "zod": "^3.21.4"
   },
   "packageManager": "pnpm@7.1.8",
   "devDependencies": {
